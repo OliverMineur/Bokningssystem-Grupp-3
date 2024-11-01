@@ -1,31 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bokningssystem
 {
     internal class Lokal
     {
-        public String RoomType { get; set; } = "";
+        public string RoomType { get; set; } = ""; // "Sal" or "Grupprum"
         public byte RoomNumber { get; set; }
         public int NumberOfChairs { get; set; }
-        public bool IsBooked { get; private set; } = false; // Endast ändras av metoderna i klassen
+        public bool IsBooked { get; private set; } = false; // Only modified by class methods
 
         public bool Booked()
         {
-            if (!IsBooked)
+            if (IsBooked)
             {
-                IsBooked = true; // Uppdaterar klassens variabel
-                return true; // Bokning lyckad
+                return false; // Room is already booked
             }
-            return false; // Lokalen är redan bokad
+
+            // Check capacity based on room type
+            if ((RoomType == "Sal" && NumberOfChairs > 40) ||
+                (RoomType == "Grupprum" && NumberOfChairs > 10))
+            {
+                return false; // Booking fails due to capacity limit
+            }
+
+            IsBooked = true; // Update booking status
+            return true; // Booking successful
         }
 
         public void Avboka()
         {
-            IsBooked = false; // Återställer bokningsstatus
+            IsBooked = false; // Reset booking status
         }
     }
 }
