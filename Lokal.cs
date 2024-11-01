@@ -23,7 +23,7 @@ namespace Bokningssystem
         }
 
         // Implementerar metoden Boka från IBookable
-        public bool Boka(DateTime startTid, TimeSpan duration, string bokadAv)
+        public virtual bool Boka(DateTime startTid, TimeSpan duration, string bokadAv)
         {
             if (IsBooked)
             {
@@ -51,7 +51,7 @@ namespace Bokningssystem
         }
 
         // Implementerar metoden Avboka från IBookable
-        public void Avboka()
+        public virtual void Avboka()
         {
             if (!IsBooked)
             {
