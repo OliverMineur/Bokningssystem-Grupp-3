@@ -2,8 +2,32 @@
 {
     internal class Bokningssystem
     {
+        private int ID;
+
+        public List<Bokningssystem> Bokningar { get; set; }
+
+        public Bokningssystem()
+        {
+            Bokningar = new List<Bokningssystem>();
+        }
+
+        public Bokningssystem HämtaBokningMedId(int ID)
+        {
+            return Bokningar.FirstOrDefault(b => b.ID == ID);
+        }
+
+        public bool TaBortBokningMedId(int id)
+        {
+            var bokning = HämtaBokningMedId(id);
+            if (bokning != null)
+            {
+                return Bokningar.Remove(bokning);
+            }
+            return false;
+        }
         static void Main(string[] args)
         {
+
             while (true)
             {
                 Console.WriteLine("Bokningssystem:\n1:Hantera bokningar\n2:Hantera lokaler");
