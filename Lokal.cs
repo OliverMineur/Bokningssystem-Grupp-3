@@ -29,6 +29,7 @@ namespace Bokningssystem
 
         public void Avboka()
         {
+            // Bu
             IsBooked = false; // Reset booking status
         }
     }
