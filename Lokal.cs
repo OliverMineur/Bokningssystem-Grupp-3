@@ -27,5 +27,6 @@ namespace Bokningssystem
         {
             IsBooked = false; // Återställer bokningsstatus
         }
+        //Jag har ändrat här!!!
     }
 }
