@@ -8,13 +8,13 @@ namespace Bokningssystem
 {
     internal class Sal: Lokal
     {
-        public bool Socket { get; set; }
-        public Sal(String roomType, byte roomNumber, int numberOfChairs, bool socket)
+        public bool Projector { get; set; }
+        public Sal(String roomType, byte roomNumber, int numberOfChairs, bool projector)
         {
             RoomType = roomType;
             RoomNumber = roomNumber;
             NumberOfChairs = numberOfChairs;
-            Socket = socket;
+            Projector = projector;
         }
     }
 }

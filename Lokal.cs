@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Timers;
 
 namespace Bokningssystem
 {
@@ -44,30 +45,35 @@ namespace Bokningssystem
                 bool roomNumberCheck = byte.TryParse(Console.ReadLine(), out roomNumber);
                 if (roomNumberCheck == true && roomNumber > 0)
                 {
-                    if (allRooms.FindIndex(x => x.RoomNumber == roomNumber) == -1)
+                    if (!allRooms.Any(x => x.RoomNumber == roomNumber))
                     {
-                        Console.WriteLine("Finns det en projektor i salen? Svara ja/nej");
-                        String? projectorOrNot = Console.ReadLine();
-                        if (String.IsNullOrEmpty(projectorOrNot))
+
+
+                        Console.WriteLine("Finns det en projektor i salen? \n1:Ja\n2:Nej");
+                        if (int.TryParse(Console.ReadLine(), out int projectorOrNot))
                         {
-                            while (String.IsNullOrEmpty(projectorOrNot))
+                            Sal newSal;
+                            switch (projectorOrNot)
                             {
-                                Console.WriteLine("Svara ja/nej");
-                                Console.WriteLine("Finns det en projektor i salen?");
-                                projectorOrNot = Console.ReadLine();
+                                case 1:
+                                    newSal = new Sal("Sal", roomNumber, 40, true);
+                                    allRooms.Add(newSal);
+                                    Console.WriteLine($"Sal med nummer {roomNumber} har lagts till!");
+                                    break;
+                                case 2:
+                                    newSal = new Sal("Sal", roomNumber, 40, false);
+                                    allRooms.Add(newSal);
+                                    Console.WriteLine($"Sal med nummer {roomNumber} har lagts till!");
+                                    break;
+                                default:
+                                    Console.WriteLine("Ogiltigt val, försök igen.");
+                                    break;
+
                             }
                         }
-                        else if (projectorOrNot.ToLower() == "Ja".ToLower())
+                        else
                         {
-                            Sal newSal = new Sal("Sal", roomNumber, 40, true);
-                            allRooms.Add(newSal);
-                            Console.WriteLine($"Sal med nummer {roomNumber} har lagts till!");
-                        }
-                        else if (projectorOrNot.ToLower() == "Nej".ToLower())
-                        {
-                            Sal newSal = new Sal("Sal", roomNumber, 40, false);
-                            allRooms.Add(newSal);
-                            Console.WriteLine($"Sal med nummer {roomNumber} har lagts till!");
+                            Console.WriteLine("Ogiltig inskrift");
                         }
                     }
                     else
@@ -75,7 +81,7 @@ namespace Bokningssystem
                         Console.WriteLine("Rumsnummret finns redan");
                     }
                 }
-                else if (roomNumberCheck == false)
+                else
                 {
                     Console.WriteLine("Ogiltlig inmatning");
                 }
@@ -87,30 +93,33 @@ namespace Bokningssystem
                 bool roomNumberCheck = byte.TryParse(Console.ReadLine(), out roomNumber);
                 if (roomNumberCheck == true && roomNumber > 0)
                 {
-                    if (allRooms.FindIndex(x => x.RoomNumber == roomNumber) == -1)
+                    if (!allRooms.Any(x => x.RoomNumber == roomNumber))
                     {
-                        Console.WriteLine("Finns det eluttag i rummet? Svara ja/nej");
-                        String? socketOrNot = Console.ReadLine();
-                        if (String.IsNullOrEmpty(socketOrNot))
+                        Console.WriteLine("Finns det eluttag i rummet? \n1:Ja\n2:Nej");
+                        if (int.TryParse(Console.ReadLine(), out int projectorOrNot))
                         {
-                            while (String.IsNullOrEmpty(socketOrNot))
+                            Grupprum newRoom;
+                            switch (projectorOrNot)
                             {
-                                Console.WriteLine("Svara ja/nej");
-                                Console.WriteLine("Finns det eluttag i salen?");
-                                socketOrNot = Console.ReadLine();
+                                case 1:
+                                    newRoom = new Grupprum("Grupprum", roomNumber, 10, true);
+                                    allRooms.Add(newRoom);
+                                    Console.WriteLine($"Grupprum med nummer {roomNumber} har lagts till!");
+                                    break;
+                                case 2:
+                                    newRoom = new Grupprum("Grupprum", roomNumber, 10, false);
+                                    allRooms.Add(newRoom);
+                                    Console.WriteLine($"Grupprum med nummer {roomNumber} har lagts till!");
+                                    break;
+                                default:
+                                    Console.WriteLine("Ogiltigt val, försök igen.");
+                                    break;
+
                             }
                         }
-                        else if (socketOrNot.ToLower() == "Ja".ToLower())
+                        else
                         {
-                            Grupprum newRoom = new Grupprum("Grupprum", roomNumber, 10, true);
-                            allRooms.Add(newRoom);
-                            Console.WriteLine($"Grupprum med nummer {roomNumber} har lagts till!");
-                        }
-                        else if (socketOrNot.ToLower() == "Nej".ToLower())
-                        {
-                            Grupprum newRoom = new Grupprum("Grupprum", roomNumber, 10, false);
-                            allRooms.Add(newRoom);
-                            Console.WriteLine($"Grupprum med nummer {roomNumber} har lagts till!");
+                            Console.WriteLine("Ogiltig inskrift");
                         }
                     }
                     else
@@ -118,7 +127,7 @@ namespace Bokningssystem
                         Console.WriteLine($"Rumsnummret finns redan: {roomNumber}");
                     }
                 }
-                else if (roomNumberCheck == false)
+                else
                 {
                     Console.WriteLine("Ogiltlig inmatning");
                 }
