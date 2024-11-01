@@ -8,5 +8,10 @@ namespace Bokningssystem
 {
     internal class Lokal
     {
+        public String RoomType { get; set; } = "";
+        public byte RoomNumber { get; set; }
+        public int NumberOfChairs { get; set; }
+
+
     }
 }
