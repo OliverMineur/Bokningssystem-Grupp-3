@@ -20,13 +20,13 @@ namespace Bokningssystem
                 return false; // Room is already booked
             }
 
-            // Check capacity based on room type
-            if ((RoomType == "Sal" && NumberOfChairs > 40) ||
-                (RoomType == "Grupprum" && NumberOfChairs > 10))
-            {
-                return false; // Booking fails due to capacity limit
-            }
-
+            //// Check capacity based on room type
+            //if ((RoomType == "Sal" && NumberOfChairs > 40) ||
+            //    (RoomType == "Grupprum" && NumberOfChairs > 10))
+            //{
+            //    return false; // Booking fails due to capacity limit
+            //}
+            BookingDuration = new TimeSpan(1,30,0);
             IsBooked = true; // Update booking status
             return true; // Booking successful
         }

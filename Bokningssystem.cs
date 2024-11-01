@@ -25,6 +25,22 @@ namespace Bokningssystem
         //    }
         //    return false;
         //}
+
+        public static void ShowAllBookings()
+        {
+            foreach (Lokal room in AllRooms)
+            {
+                if (room.IsBooked == true)
+                {
+                    Console.WriteLine("" + room.RoomNumber + " is booked by " +
+                                        room.ClientName + " from " +
+                                        room.BookingStartTime.ToString("M") + " " +
+                                        room.BookingStartTime.ToString("HH:mm") + " to " +
+                                        (room.BookingStartTime + room.BookingDuration).ToString("HH:mm"));
+                }
+            }
+        }
+
         static void Main(string[] args)
         {
             AllRooms.Add(new Sal("Sal", 12, 40, false));
@@ -33,6 +49,7 @@ namespace Bokningssystem
             AllRooms.Add(new Grupprum("Grupprum", 14, 20, true));
             AllRooms.Add(new Grupprum("Grupprum", 14, 20, true));
             AllRooms.Add(new Sal("Sal", 12, 40, false));
+            AllRooms[1].Booked();
 
 
             //foreach (Lokal item in AllRooms)
@@ -64,7 +81,7 @@ namespace Bokningssystem
                                         //Skapa bokning
                                         break;
                                     case 2:
-                                        //Se alla bokningar
+                                        ShowAllBookings();
                                         break;
                                     case 3:
                                         //Ta bort alla bokningar
