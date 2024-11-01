@@ -1,32 +1,55 @@
-﻿namespace Bokningssystem
+﻿using System.ComponentModel.Design;
+
+namespace Bokningssystem
 {
     internal class Bokningssystem
     {
-        private int ID;
+        private int ID { get; set; }
 
-        public static List<Bokningssystem> Bokningar = new List<Bokningssystem>();
+        public static List<Lokal> AllRooms = new List<Lokal>();
+        
 
         public Bokningssystem()
         {
             
         }
 
-        public Bokningssystem HämtaBokningMedId(int ID)
-        {
-            return Bokningar.FirstOrDefault(b => b.ID == ID);
-        }
+        //public Lokal GetBookingWithId(int ID)
+        //{
+        //    return AllRooms.FirstOrDefault(b => b.ID == ID);
+        //}
 
-        public bool TaBortBokningMedId(int id)
-        {
-            var bokning = HämtaBokningMedId(id);
-            if (bokning != null)
-            {
-                return Bokningar.Remove(bokning);
-            }
-            return false;
-        }
+        //public bool RemoveBookingWithId(int id)
+        //{
+        //    var bokning = GetBookingWithId(id);
+        //    if (bokning != null)
+        //    {
+        //        return AllRooms.Remove(bokning);
+        //    }
+        //    return false;
+        //}
         static void Main(string[] args)
         {
+            AllRooms.Add(new Sal("Sal", 12, 40, false));
+            AllRooms.Add(new Grupprum("Grupprum", 14, 20, true));
+            AllRooms.Add(new Sal("Sal", 12, 40, false));
+            AllRooms.Add(new Grupprum("Grupprum", 14, 20, true));
+            AllRooms.Add(new Grupprum("Grupprum", 14, 20, true));
+            AllRooms.Add(new Sal("Sal", 12, 40, false));
+
+
+            //foreach (Lokal item in AllRooms)
+            //{
+            //    if(item is Sal a)
+            //    {
+            //        Console.WriteLine(a.RoomType + a.Socket + a.NumberOfChairs);
+            //    }
+            //    else if (item is Grupprum b)
+            //    {
+            //        Console.WriteLine(b.RoomType + b.RoomNumber);
+            //    }
+            //}
+
             while (true)
             {
                 Console.WriteLine("Bokningssystem:\n1:Hantera bokningar\n2:Hantera lokaler");

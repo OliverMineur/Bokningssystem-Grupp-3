@@ -27,9 +27,10 @@ namespace Bokningssystem
             return true; // Booking successful
         }
 
-        public void Avboka()
+        public void Unbook()
         {
             IsBooked = false; // Reset booking status
         }
+        //Jag har ändrat här!!!
     }
 }
