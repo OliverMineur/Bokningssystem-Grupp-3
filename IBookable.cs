@@ -8,5 +8,9 @@ namespace Bokningssystem
 {
     internal interface IBookable
     {
+        private void AddBooking()
+        {
+
+        }
     }
 }
