@@ -29,12 +29,19 @@
                                     case 4:
                                         //Uppdatera bokning
                                         break;
+                                    default:
+                                        Console.WriteLine("Inget valdes, försök igen.");
+                                        break;
 
                                 }
                             }
+                            else
+                            {
+                                throw new InvalidDataException();
+                            }
                             break;
                         case 2:
-                            Console.WriteLine("Hantera lokaler:\n1:Visa alla salar\n2:Skapa ny sal");
+                            Console.WriteLine("Hantera lokaler:\n1:Visa alla salar och grupprum\n2:Skapa ny sal eller grupprum");
                             if ((int.TryParse(Console.ReadLine(),out secondMenuChoice)))
                             {
                                 switch (secondMenuChoice)
@@ -45,10 +52,24 @@
                                     case 2:
                                         //Skapa ny sal
                                         break;
+                                    default:
+                                        Console.WriteLine("Inget valdes, försök igen.");
+                                        break;
                                 }
                             }
+                            else
+                            {
+                                throw new InvalidDataException();
+                            }
+                            break;
+                        default:
+                            Console.WriteLine("Inget valdes, försök igen.");
                             break;
                     }
+                }
+                else
+                {
+                    throw new InvalidDataException();
                 }
             }
         }
