@@ -4,11 +4,11 @@
     {
         private int ID;
 
-        public List<Bokningssystem> Bokningar { get; set; }
+        public static List<Bokningssystem> Bokningar = new List<Bokningssystem>();
 
         public Bokningssystem()
         {
-            Bokningar = new List<Bokningssystem>();
+            
         }
 
         public Bokningssystem HämtaBokningMedId(int ID)
@@ -27,7 +27,6 @@
         }
         static void Main(string[] args)
         {
-
             while (true)
             {
                 Console.WriteLine("Bokningssystem:\n1:Hantera bokningar\n2:Hantera lokaler");
