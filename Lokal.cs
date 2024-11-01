@@ -15,8 +15,6 @@ namespace Bokningssystem
         public string ClientName { get; set; }
         public int BookingID { get; private set; } // Boknings-ID, sätts vid bokning
 
-        // Lista för alla rum
-        public static List<Lokal> AllRooms = new List<Lokal>();
 
         // Funktion för att boka ett rum
         public bool BookRoom(string clientName, DateTime startTime, TimeSpan duration)
@@ -41,7 +39,7 @@ namespace Bokningssystem
             BookingStartTime = startTime;
             BookingDuration = duration;
             IsBooked = true; // Uppdatera bokningsstatus
-            AllRooms.Add(this); // Lägg till i listan med bokade rum
+            Bokningssystem.AllRooms.Add(this);// Lägg till i listan med bokade rum
 
             Console.WriteLine($"Bokning lyckades! Boknings-ID: {BookingID}");
             return true; // Bokning lyckades
@@ -51,7 +49,7 @@ namespace Bokningssystem
         public void Unbook()
         {
             IsBooked = false; // Återställ bokningsstatus
-            AllRooms.Remove(this); // Ta bort från listan med bokade rum
+            Bokningssystem.AllRooms.Remove(this); // Ta bort från listan med bokade rum
             Console.WriteLine("Rummet har avbokats.");
         }
 
@@ -64,11 +62,11 @@ namespace Bokningssystem
             do
             {
                 newBookingID = 1 * 1000 + rnd.Next(1, 1000);
-            } while (AllRooms.Any(x => x.BookingID == newBookingID));
+            } while (Bokningssystem.AllRooms.Any(x => x.BookingID == newBookingID));
 
             return newBookingID;
         }
-        public static void AddRoom(List<Lokal> allRooms)
+        public static void AddRoom()
         //Behövs det en return av listan för att spara nytt rum?
         {
             Console.WriteLine("Vad vill du lägga till?");
@@ -81,7 +79,7 @@ namespace Bokningssystem
                 bool roomNumberCheck = byte.TryParse(Console.ReadLine(), out roomNumber);
                 if (roomNumberCheck == true && roomNumber > 0)
                 {
-                    if (!allRooms.Any(x => x.RoomNumber == roomNumber))
+                    if (!Bokningssystem.AllRooms.Any(x => x.RoomNumber == roomNumber))
                     {
 
 
@@ -93,12 +91,12 @@ namespace Bokningssystem
                             {
                                 case 1:
                                     newSal = new Sal("Sal", roomNumber, 40, true);
-                                    allRooms.Add(newSal);
+                                    Bokningssystem.AllRooms.Add(newSal);
                                     Console.WriteLine($"Sal med nummer {roomNumber} har lagts till!");
                                     break;
                                 case 2:
                                     newSal = new Sal("Sal", roomNumber, 40, false);
-                                    allRooms.Add(newSal);
+                                    Bokningssystem.AllRooms.Add(newSal);
                                     Console.WriteLine($"Sal med nummer {roomNumber} har lagts till!");
                                     break;
                                 default:
@@ -129,7 +127,7 @@ namespace Bokningssystem
                 bool roomNumberCheck = byte.TryParse(Console.ReadLine(), out roomNumber);
                 if (roomNumberCheck == true && roomNumber > 0)
                 {
-                    if (!allRooms.Any(x => x.RoomNumber == roomNumber))
+                    if (!Bokningssystem.AllRooms.Any(x => x.RoomNumber == roomNumber))
                     {
                         Console.WriteLine("Finns det eluttag i rummet? \n1:Ja\n2:Nej");
                         if (int.TryParse(Console.ReadLine(), out int projectorOrNot))
@@ -139,12 +137,12 @@ namespace Bokningssystem
                             {
                                 case 1:
                                     newRoom = new Grupprum("Grupprum", roomNumber, 10, true);
-                                    allRooms.Add(newRoom);
+                                    Bokningssystem.AllRooms.Add(newRoom);
                                     Console.WriteLine($"Grupprum med nummer {roomNumber} har lagts till!");
                                     break;
                                 case 2:
                                     newRoom = new Grupprum("Grupprum", roomNumber, 10, false);
-                                    allRooms.Add(newRoom);
+                                    Bokningssystem.AllRooms.Add(newRoom);
                                     Console.WriteLine($"Grupprum med nummer {roomNumber} har lagts till!");
                                     break;
                                 default:

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Design;
+using System.Net.Sockets;
 
 namespace Bokningssystem
 {
@@ -94,7 +95,7 @@ namespace Bokningssystem
                                         break;
                                     case 2:
                                         //Skapa ny sal
-                                        Lokal.AddRoom(AllRooms);
+                                        Lokal.AddRoom();
                                         break;
                                     default:
                                         Console.WriteLine("Ogiltigt val, försök igen.");
