@@ -1,5 +1,5 @@
 ﻿using Bokningssystem;
-using System.Runtime.CompilerServices;
+using System;
 
 internal class Sal : Lokal
 {

@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
 
 namespace Bokningssystem
 {
@@ -12,8 +6,8 @@ namespace Bokningssystem
     {
         public bool Projector { get; set; }
 
-        public Grupprum(string roomType, byte roomNumber, int numberOfChairs, bool projector)
-            : base(roomType, roomNumber, numberOfChairs)
+        public Grupprum(byte roomNumber, int numberOfChairs, bool projector)
+            : base("Grupprum", roomNumber, numberOfChairs) // Ge korrekt rumstyp
         {
             Projector = projector;
         }

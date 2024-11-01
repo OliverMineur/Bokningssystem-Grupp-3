@@ -2,7 +2,7 @@
 
 namespace Bokningssystem
 {
-    internal abstract class Lokal : IBookable
+    public abstract class Lokal : IBookable
     {
         public string RoomType { get; set; }
         public byte RoomNumber { get; set; }
@@ -11,7 +11,7 @@ namespace Bokningssystem
         public DateTime BookingStartTime { get; protected set; }
         public TimeSpan BookingDuration { get; protected set; }
         public string ClientName { get; protected set; }
-        public int BookingID { get; private set; }
+        public int BookingID { get; protected set; }
 
 
         // Konstruktor för att skapa en ny lokal
