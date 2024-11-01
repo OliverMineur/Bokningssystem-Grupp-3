@@ -23,7 +23,7 @@ namespace Bokningssystem
             return false; // Lokalen är redan bokad
         }
 
-        public void Avboka()
+        public void Unbook()
         {
             IsBooked = false; // Återställer bokningsstatus
         }
