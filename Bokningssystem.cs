@@ -2,23 +2,32 @@
 
 namespace Bokningssystem
 {
-    internal class Bokningssystem
-    {  
-                public List<Bokning> Bokningar { get; set; }
+    public class Bokningssystem
+    {
+        private int ID;
 
-                public BokningsSystem()
-                {
-                    Bokningar = new List<Bokning>();
-                }
+        public List<Bokningssystem> Bokningar { get; set; }
 
-                public bool TaBortBokning(Bokning bokning)
-                {
-                    return Bokningar.Remove(bokning);
-                }
-            }
-
+        public Bokningssystem()
+        {
+            Bokningar = new List<Bokningssystem>();
         }
 
-    
+        public Bokningssystem HämtaBokningMedId(int ID)
+        {
+            return Bokningar.FirstOrDefault(b => b.ID == ID);
+        }
+
+        public bool TaBortBokningMedId(int id)
+        {
+            var bokning = HämtaBokningMedId(id);
+            if (bokning != null)
+            {
+                return Bokningar.Remove(bokning);
+            }
+            return false;
+        }
+    }
+}
 
 
