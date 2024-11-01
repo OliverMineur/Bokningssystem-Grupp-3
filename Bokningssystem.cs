@@ -97,6 +97,7 @@ namespace Bokningssystem
                                         break;
                                     case 2:
                                         //Skapa ny sal
+                                        Lokal.AddRoom(AllRooms);
                                         break;
                                     default:
                                         Console.WriteLine("Inget valdes, försök igen.");
