@@ -4,10 +4,14 @@ namespace Bokningssystem
 {
     internal class Lokal
     {
-        public string RoomType { get; set; } = ""; // "Sal" or "Grupprum"
+        public String RoomType { get; set; } = ""; // "Sal" or "Grupprum"
         public byte RoomNumber { get; set; }
         public int NumberOfChairs { get; set; }
         public bool IsBooked { get; private set; } = false; // Only modified by class methods
+        public DateTime BookingStartTime { get; set; }
+        public TimeSpan BookingDuration { get; set; }
+        public String ClientName { get; set; }
+        public int BookingID { get; set; }
 
         public bool Booked()
         {

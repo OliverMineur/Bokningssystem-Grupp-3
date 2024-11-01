@@ -4,10 +4,7 @@ namespace Bokningssystem
 {
     internal class Bokningssystem
     {
-        private int ID { get; set; }
-
         public static List<Lokal> AllRooms = new List<Lokal>();
-        
 
         public Bokningssystem()
         {
