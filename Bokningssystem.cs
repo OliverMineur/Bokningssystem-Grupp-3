@@ -73,14 +73,14 @@ namespace Bokningssystem
                                         //Uppdatera bokning
                                         break;
                                     default:
-                                        Console.WriteLine("Inget valdes, försök igen.");
+                                        Console.WriteLine("Ogiltigt val, försök igen.");
                                         break;
 
                                 }
                             }
                             else
                             {
-                                throw new InvalidDataException();
+                                Console.WriteLine("Ogiltig inskrift");
                             }
                             break;
                         case 2:
@@ -94,25 +94,26 @@ namespace Bokningssystem
                                         break;
                                     case 2:
                                         //Skapa ny sal
+                                        Lokal.AddRoom(AllRooms);
                                         break;
                                     default:
-                                        Console.WriteLine("Inget valdes, försök igen.");
+                                        Console.WriteLine("Ogiltigt val, försök igen.");
                                         break;
                                 }
                             }
                             else
                             {
-                                throw new InvalidDataException();
+                                Console.WriteLine("Ogiltig inskrift");
                             }
                             break;
                         default:
-                            Console.WriteLine("Inget valdes, försök igen.");
+                            Console.WriteLine("Ogiltigt val, försök igen.");
                             break;
                     }
                 }
                 else
                 {
-                    throw new InvalidDataException();
+                    Console.WriteLine("Ogiltig inskrift");
                 }
             }
         }
