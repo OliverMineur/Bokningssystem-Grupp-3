@@ -61,11 +61,13 @@ namespace Bokningssystem
                         {
                             Sal newSal = new Sal("Sal", roomNumber, 40, true);
                             allRooms.Add(newSal);
+                            Console.WriteLine($"Sal med nummer {roomNumber} har lagts till!");
                         }
                         else if (projectorOrNot.ToLower() == "Nej".ToLower())
                         {
                             Sal newSal = new Sal("Sal", roomNumber, 40, false);
                             allRooms.Add(newSal);
+                            Console.WriteLine($"Sal med nummer {roomNumber} har lagts till!");
                         }
                     }
                     else
@@ -102,11 +104,13 @@ namespace Bokningssystem
                         {
                             Grupprum newRoom = new Grupprum("Grupprum", roomNumber, 10, true);
                             allRooms.Add(newRoom);
+                            Console.WriteLine($"Grupprum med nummer {roomNumber} har lagts till!");
                         }
                         else if (socketOrNot.ToLower() == "Nej".ToLower())
                         {
                             Grupprum newRoom = new Grupprum("Grupprum", roomNumber, 10, false);
                             allRooms.Add(newRoom);
+                            Console.WriteLine($"Grupprum med nummer {roomNumber} har lagts till!");
                         }
                     }
                     else
