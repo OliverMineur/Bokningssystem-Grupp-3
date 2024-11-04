@@ -17,6 +17,65 @@ namespace Bokningssystem
         public string ClientName { get; protected set; } = "";
         public int BookingID { get; protected set; }
 
+        public static void BokningsMeny()
+        {
+            Console.WriteLine("Välj rumstyp att boka:");
+            Console.WriteLine("1. Sal");
+            Console.WriteLine("2. Grupprum");
+            string roomTypeChoice = Console.ReadLine();
+
+            // Hämta en lista över lediga rum av vald typ
+            List<Lokal> ledigaRum = Bokningssystem.AllRooms.Where(rum => rum.RoomType == (roomTypeChoice == "1" ? "Sal" : "Grupprum") && !rum.IsBooked).ToList();
+
+            if (!ledigaRum.Any())
+            {
+                Console.WriteLine("Inga lediga rum av denna typ.");
+                return;
+            }
+            Console.WriteLine("Välj rum nummer att boka");
+            foreach (var rum in ledigaRum)
+            {
+                Console.WriteLine($"Rum nummer: {rum.RoomNumber}, Platser: {rum.NumberOfChairs}");
+
+            }
+            byte roomNumber;
+            if (!byte.TryParse( Console.ReadLine(), out roomNumber))
+            {
+                Console.WriteLine("Ogiltigt inmatning");
+                return;
+            }
+            Lokal valtRum = ledigaRum.FirstOrDefault(rum => rum.RoomNumber == roomNumber);
+            if (valtRum == null)
+            {
+                Console.WriteLine("Rum inte hittat.");
+                return;
+            }
+            Console.WriteLine("Ange kundens namn:");
+            string clientNamn = Console.ReadLine();
+
+            Console.WriteLine("Ange bokningsstarttid (ÅÅÅÅ-MM-DD:MM):");
+            DateTime startTime;
+            if (!DateTime.TryParse( Console.ReadLine(), out startTime))
+            {
+                Console.WriteLine("Ogiltigt tid");
+                return;
+            }
+            Console.WriteLine("Ange varaktighet i timmar:");
+            TimeSpan duration;
+            if (!TimeSpan.TryParse( Console.ReadLine(),out duration))
+            {
+                Console.WriteLine("Ogiltigt varaktighet");
+                return;
+            }
+            if (valtRum.Boka(startTime, duration, clientNamn))
+            {
+                Console.WriteLine("Bokningen är genomförd");
+            }
+            else
+            {
+                Console.WriteLine("Kunde inte boka rummet");
+            }
+        }
 
         // Funktion för att boka ett rum
         public Lokal(String roomType, byte roomNumber, int numberOfChairs)
@@ -76,6 +135,27 @@ namespace Bokningssystem
 
             return newBookingID;
         }
+        public static Lokal FindRoomByID(int bookingID)
+        {
+            return Bokningssystem.AllRooms.FirstOrDefault(room => room.BookingID == bookingID);
+
+            int searchID = 1234; // Sök-ID
+            Lokal room = FindRoomByID(searchID);
+            
+            if (room != null)
+            {
+                Console.WriteLine($"Rum hittades: {room.RoomType} med nummer {room.RoomNumber}");
+            }
+            else
+            {
+                Console.WriteLine("Ingen bokning hittades med det angivna ID:t");
+            }
+
+        }
+        
+        
+        
+
         public static void AddRoom()
         //Behövs det en return av listan för att spara nytt rum?
         {
