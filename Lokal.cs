@@ -6,6 +6,8 @@ namespace Bokningssystem
 {
     public abstract class Lokal : IBookable
     {
+        private static byte roomNumber;
+
         public string RoomType { get; set; } // "Sal" eller "Grupprum"
         public byte RoomNumber { get; set; }
         public int NumberOfChairs { get; set; }
@@ -159,6 +161,8 @@ namespace Bokningssystem
         public static void AddRoom()
         //Behövs det en return av listan för att spara nytt rum?
         {
+            SaveRoomsToFile("roomstxt");
+
             Console.WriteLine("Vad vill du lägga till?");
             Console.WriteLine("1.Sal\n2.Grupprum");
             String? selection = Console.ReadLine();
@@ -261,5 +265,58 @@ namespace Bokningssystem
                 Console.WriteLine("Ogiltligt val");
             }
         }
+        public static void ListRooms()
+        {
+            Console.WriteLine("Lista över alla salar och deras egenskaper:");
+            foreach (var room in Bokningssystem.AllRooms)
+            {
+                Console.WriteLine($"Rumstyp: {room.RoomType}, Rumsnummer: {room.RoomNumber}, Antal stolar: {room.NumberOfChairs}, Bokad: {room.IsBooked}");
+            }
+            if (Bokningssystem.AllRooms.Any(x => x.RoomNumber == roomNumber))
+            {
+                Console.WriteLine("Rumsnumret finns redan.");
+                return;
+            }
+
+        }
+        public static void SaveRoomsToFile(string filePath)
+        {
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                foreach (var room in Bokningssystem.AllRooms)
+                {
+                    writer.WriteLine($"{room.RoomType},{room.RoomNumber},{room.NumberOfChairs},{room.IsBooked}");
+                }
+            }
+        }
+
+        public static void LoadRoomsFromFile(string filePath)
+        {
+            if (File.Exists(filePath))
+            {
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        var parts = line.Split(',');
+                        string roomType = parts[0];
+                        byte roomNumber = byte.Parse(parts[1]);
+                        int numberOfChairs = int.Parse(parts[2]);
+                        bool isBooked = bool.Parse(parts[3]);
+
+                        if (roomType == "Sal")
+                        {
+                            Bokningssystem.AllRooms.Add(new Sal(roomType, roomNumber, numberOfChairs, isBooked));
+                        }
+                        else if (roomType == "Grupprum")
+                        {
+                            Bokningssystem.AllRooms.Add(new Grupprum(roomType, roomNumber, numberOfChairs, isBooked));
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }
