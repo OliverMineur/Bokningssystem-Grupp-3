@@ -65,7 +65,7 @@ namespace Bokningssystem
                 Console.WriteLine("Ogiltigt varaktighet");
                 return;
             }
-            if (valtRum.BookRoom(clientNamn, startTime, duration))
+            if (valtRum.Boka(startTime, duration, clientNamn))
             {
                 Console.WriteLine("Bokningen är genomförd");
             }
