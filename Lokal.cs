@@ -66,6 +66,27 @@ namespace Bokningssystem
 
             return newBookingID;
         }
+        public static Lokal FindRoomByID(int bookingID)
+        {
+            return Bokningssystem.AllRooms.FirstOrDefault(room => room.BookingID == bookingID);
+
+            int searchID = 1234; // Sök-ID
+            Lokal room = FindRoomByID(searchID);
+            
+            if (room != null)
+            {
+                Console.WriteLine($"Rum hittades: {room.RoomType} med nummer {room.RoomNumber}");
+            }
+            else
+            {
+                Console.WriteLine("Ingen bokning hittades med det angivna ID:t");
+            }
+
+        }
+        
+        
+        
+
         public static void AddRoom()
         //Behövs det en return av listan för att spara nytt rum?
         {
