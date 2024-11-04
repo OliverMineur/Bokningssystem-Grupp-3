@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System;
+
 namespace Bokningssystem
 {
     internal interface IBookable
     {
-        private void AddBooking()
-        {
-
-        }
+        bool Boka(DateTime startTid, TimeSpan duration, string bokadAv);
+        void Avboka();
     }
 }

@@ -28,12 +28,12 @@ namespace Bokningssystem
         //}
         static void Main(string[] args)
         {
-            AllRooms.Add(new Sal("Sal", 12, 40, false));
-            AllRooms.Add(new Grupprum("Grupprum", 14, 20, true));
-            AllRooms.Add(new Sal("Sal", 12, 40, false));
-            AllRooms.Add(new Grupprum("Grupprum", 14, 20, true));
-            AllRooms.Add(new Grupprum("Grupprum", 14, 20, true));
-            AllRooms.Add(new Sal("Sal", 12, 40, false));
+            AllRooms.Add(new Sal(12, 40, false));
+            AllRooms.Add(new Grupprum(14, 20, true));
+            AllRooms.Add(new Sal(12, 40, false));
+            AllRooms.Add(new Grupprum(14, 20, true));
+            AllRooms.Add(new Grupprum(14, 20, true));
+            AllRooms.Add(new Sal(12, 40, false));
 
 
             //foreach (Lokal item in AllRooms)

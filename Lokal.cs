@@ -4,20 +4,28 @@ using System.Linq;
 
 namespace Bokningssystem
 {
-    internal class Lokal
+    public abstract class Lokal : IBookable
     {
         public string RoomType { get; set; } = ""; // "Sal" eller "Grupprum"
         public byte RoomNumber { get; set; }
         public int NumberOfChairs { get; set; }
-        public bool IsBooked { get; private set; } = false; // Endast ändras via metoder
-        public DateTime BookingStartTime { get; set; }
-        public TimeSpan BookingDuration { get; set; }
-        public string ClientName { get; set; }
-        public int BookingID { get; private set; } // Boknings-ID, sätts vid bokning
+        public bool IsBooked { get; protected set; }
+        public DateTime BookingStartTime { get; protected set; }
+        public TimeSpan BookingDuration { get; protected set; }
+        public string ClientName { get; protected set; }
+        public int BookingID { get; protected set; }
 
 
         // Funktion för att boka ett rum
         public bool BookRoom(string clientName, DateTime startTime, TimeSpan duration)
+        {
+            RoomType = roomType;
+            RoomNumber = roomNumber;
+            NumberOfChairs = numberOfChairs;
+        }
+
+        // Implementerar metoden Boka från IBookable
+        public virtual bool Boka(DateTime startTid, TimeSpan duration, string bokadAv)
         {
             if (IsBooked)
             {

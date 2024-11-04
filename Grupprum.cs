@@ -1,22 +1,53 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bokningssystem
 {
-    internal class Grupprum: Lokal
+    internal class Grupprum : Lokal
     {
-        public bool Socket { get; set; }
-        public Grupprum(String roomType, byte roomNumber, int numberOfChairs, bool socket)
+        public bool Projector { get; set; }
+
+        public Grupprum(byte roomNumber, int numberOfChairs, bool projector)
+            : base("Grupprum", roomNumber, numberOfChairs) // Ge korrekt rumstyp
         {
-            RoomType = roomType;
-            RoomNumber = roomNumber;
-            NumberOfChairs = numberOfChairs;
-            
-            Socket = socket;
+            Projector = projector;
+        }
+
+        public override bool Boka(DateTime startTid, TimeSpan duration, string bokadAv)
+        {
+            if (IsBooked)
+            {
+                Console.WriteLine("Grupprummet är redan bokat.");
+                return false;
+            }
+
+            // Kontrollera kapacitet
+            if (NumberOfChairs > 10)
+            {
+                Console.WriteLine("Bokning misslyckades: Kapacitetsgräns överskriden för Grupprum.");
+                return false;
+            }
+
+            // Sätt bokningsinformation
+            IsBooked = true;
+            BookingStartTime = startTid;
+            BookingDuration = duration;
+            ClientName = bokadAv;
+            BookingID = new Random().Next(1000, 9999);
+
+            Console.WriteLine($"Grupprummet är bokat av {bokadAv} från {startTid} i {duration.TotalHours} timmar.");
+            return true;
+        }
+
+        public override void Avboka()
+        {
+            if (!IsBooked)
+            {
+                Console.WriteLine("Grupprummet är inte bokat och kan därför inte avbokas.");
+                return;
+            }
+
+            IsBooked = false;
+            Console.WriteLine("Grupprummet har avbokats.");
         }
     }
 }
