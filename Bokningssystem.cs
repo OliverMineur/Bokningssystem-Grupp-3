@@ -26,7 +26,7 @@ namespace Bokningssystem
         //    return false;
         //}
 
-        public void ShowAllBookings()
+        public static void ShowAllBookings()
         {
             foreach (Lokal room in AllRooms)
             {
@@ -47,7 +47,21 @@ namespace Bokningssystem
                 Console.WriteLine("Hur vill du filtrera listan?\n1:Sortera efter rumstyp\n2:Sortera efter datum\n3:Sortera efter rum nummer");
                 if (int.TryParse(Console.ReadLine(), out int menuChoice))
                 {
+                    switch (menuChoice)
+                    {
+                        case 1:
 
+                            break;
+                        case 2:
+
+                            break;
+                        case 3:
+
+                            break;
+                        default:
+
+                            break;
+                    }
                 }
             }
             catch (Exception ex)
