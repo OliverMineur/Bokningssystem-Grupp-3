@@ -6,18 +6,18 @@ namespace Bokningssystem
 {
     public abstract class Lokal : IBookable
     {
-        public string RoomType { get; set; } = ""; // "Sal" eller "Grupprum"
+        public string RoomType { get; set; } // "Sal" eller "Grupprum"
         public byte RoomNumber { get; set; }
         public int NumberOfChairs { get; set; }
         public bool IsBooked { get; protected set; }
         public DateTime BookingStartTime { get; protected set; }
         public TimeSpan BookingDuration { get; protected set; }
-        public string ClientName { get; protected set; }
+        public string ClientName { get; protected set; } = "";
         public int BookingID { get; protected set; }
 
 
         // Funktion för att boka ett rum
-        public bool BookRoom(string clientName, DateTime startTime, TimeSpan duration)
+        public Lokal(String roomType, byte roomNumber, int numberOfChairs)
         {
             RoomType = roomType;
             RoomNumber = roomNumber;
@@ -25,7 +25,7 @@ namespace Bokningssystem
         }
 
         // Implementerar metoden Boka från IBookable
-        public virtual bool Boka(DateTime startTid, TimeSpan duration, string bokadAv)
+        public virtual bool Boka(DateTime startTime, TimeSpan duration, string clientName)
         {
             if (IsBooked)
             {
@@ -54,7 +54,7 @@ namespace Bokningssystem
         }
 
         // Funktion för att avboka ett rum
-        public void Unbook()
+        public void UnBook()
         {
             IsBooked = false; // Återställ bokningsstatus
             Bokningssystem.AllRooms.Remove(this); // Ta bort från listan med bokade rum

@@ -5,8 +5,8 @@ internal class Sal : Lokal
 {
     public bool Socket { get; set; }
 
-    public Sal(byte roomNumber, int numberOfChairs, bool socket)
-        : base("Sal", roomNumber, numberOfChairs)
+    public Sal(string roomType, byte roomNumber, int numberOfChairs, bool socket)
+        : base(roomType, roomNumber, numberOfChairs)
     {
         Socket = socket;
     }
@@ -37,7 +37,7 @@ internal class Sal : Lokal
         return true;
     }
 
-    public override void Avboka()
+    public void UnBook()
     {
         if (!IsBooked)
         {

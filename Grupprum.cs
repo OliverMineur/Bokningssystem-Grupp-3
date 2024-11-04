@@ -6,8 +6,8 @@ namespace Bokningssystem
     {
         public bool Projector { get; set; }
 
-        public Grupprum(byte roomNumber, int numberOfChairs, bool projector)
-            : base("Grupprum", roomNumber, numberOfChairs) // Ge korrekt rumstyp
+        public Grupprum(string roomType, byte roomNumber, int numberOfChairs, bool projector)
+            : base(roomType, roomNumber, numberOfChairs)
         {
             Projector = projector;
         }
@@ -38,7 +38,7 @@ namespace Bokningssystem
             return true;
         }
 
-        public override void Avboka()
+        public void UnBook()
         {
             if (!IsBooked)
             {

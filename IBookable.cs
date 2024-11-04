@@ -10,7 +10,7 @@ namespace Bokningssystem
 {
     internal interface IBookable
     {
-        bool Boka(DateTime startTid, TimeSpan duration, string bokadAv);
-        void Avboka();
+        bool Boka(DateTime startTime, TimeSpan duration, string clientName);
+        void UnBook();
     }
 }
