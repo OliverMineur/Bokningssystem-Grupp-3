@@ -171,5 +171,21 @@ namespace Bokningssystem
                 Console.WriteLine("Ogiltligt val");
             }
         }
+        public static void UpdateRoom()
+        {
+            Console.WriteLine("Ange boknings ID:");
+
+            if (int.TryParse(Console.ReadLine(), out int userSearchId))
+            {
+                if (Bokningssystem.AllRooms.Any(x => x.BookingID == userSearchId))
+                {
+                    Console.WriteLine("");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Ogiltlig inmatning");
+            }
+        }
     }
 }
