@@ -177,10 +177,31 @@ namespace Bokningssystem
 
             if (int.TryParse(Console.ReadLine(), out int userSearchId))
             {
-                if (Bokningssystem.AllRooms.Any(x => x.BookingID == userSearchId))
+                foreach (Lokal booking in Bokningssystem.AllRooms)
                 {
-                    Console.WriteLine("");
+                    if (Bokningssystem.AllRooms.Any(x => x.BookingID == userSearchId))
+                    {
+                        Console.WriteLine("Vad vill du göra?");
+                        Console.WriteLine("1.Byta sal\n2.Ändra tid\n3.Båda");
+                        if (int.TryParse(Console.ReadLine(), out int userChoice))
+                        {
+                            switch (userChoice)
+                            {
+                                case 1:
+                                    Console.WriteLine("Lediga rum:");
+                                    //Skriv ut lediga salar/grupprum här
+                                    Console.WriteLine("Skriv in nummret på rummet du vill boka:");
+
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    break;
+                            }
+                        }
+                    }
                 }
+                Console.WriteLine("Bokning hittades inte");
             }
             else
             {
