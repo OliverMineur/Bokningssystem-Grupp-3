@@ -50,6 +50,13 @@ namespace Bokningssystem
 
             while (true)
             {
+                Console.WriteLine("Huvudmeny");
+                Console.WriteLine("1. Boka ett rum");
+                Console.WriteLine("2. Lägg till ett nytt rum");
+                Console.WriteLine("3. Avsluta");
+
+                string choice = Console.ReadLine();
+
                 Console.WriteLine("Bokningssystem:\n1:Hantera bokningar\n2:Hantera lokaler");
                 if(int.TryParse(Console.ReadLine(), out int menuChoice))
                 {
@@ -63,6 +70,7 @@ namespace Bokningssystem
                                 {
                                     case 1:
                                         //Skapa bokning
+                                        Lokal.BokningsMeny();
                                         break;
                                     case 2:
                                         //Se alla bokningar
@@ -73,6 +81,10 @@ namespace Bokningssystem
                                     case 4:
                                         //Uppdatera bokning
                                         break;
+                                    case 5:
+                                        // Avsluta Program
+                                        Console.WriteLine("Avslutar programmet");
+                                        return;
                                     default:
                                         Console.WriteLine("Ogiltigt val, försök igen.");
                                         break;
