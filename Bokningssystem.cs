@@ -67,13 +67,22 @@ namespace Bokningssystem
                     case (4, 1):
                         Console.WriteLine("Vilket år vill du söka på:\nFormat exempel \"1998\"");
                         int searchForyear = int.Parse(Console.ReadLine());
-                        
+                        foreach (Lokal room in AllRooms)
+                        {
+                            if (searchForyear == room.BookingStartTime.Year)
+                            {
+                                Console.WriteLine("" + room.RoomNumber + " is booked by " +
+                                                        room.ClientName + " from " +
+                                                        room.BookingStartTime.ToString("M") + " " +
+                                                        room.BookingStartTime.ToString("HH:mm") + " to " +
+                                                        (room.BookingStartTime + room.BookingDuration).ToString("HH:mm"));
+                            }
+                        }
                         break;
                     default:
                         Console.WriteLine("Inget av alternativen valdes.");
                         break;
                 }
-
             }
             catch (Exception ex)
             {
