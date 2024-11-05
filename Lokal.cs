@@ -6,8 +6,6 @@ namespace Bokningssystem
 {
     public abstract class Lokal : IBookable
     {
-        private static byte roomNumber;
-
         public string RoomType { get; set; } // "Sal" eller "Grupprum"
         public byte RoomNumber { get; set; }
         public int NumberOfChairs { get; set; }
