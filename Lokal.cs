@@ -257,7 +257,7 @@ namespace Bokningssystem
             Console.WriteLine("Lista över alla salar och deras egenskaper:");
             foreach (var room in Bokningssystem.AllRooms)
             {
-                Console.WriteLine($"Rumstyp: {room.RoomType}, Rumsnummer: {room.RoomNumber}, Antal stolar: {room.NumberOfChairs}, Bokad: {room.IsBooked}");
+                Console.WriteLine($"Rumstyp: {room.RoomType}, Rumsnummer: {room.RoomNumber}, Antal stolar: {room.NumberOfChairs}");
             }
 
         }
