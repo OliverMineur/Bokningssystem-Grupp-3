@@ -153,59 +153,48 @@ namespace Bokningssystem
             }
 
         }
-        
-        
-        
+
 
         public static void AddRoom()
-        //Behövs det en return av listan för att spara nytt rum?
         {
-            SaveRoomsToFile("roomstxt");
-
             Console.WriteLine("Vad vill du lägga till?");
-            Console.WriteLine("1.Sal\n2.Grupprum");
-            String? selection = Console.ReadLine();
+            Console.WriteLine("1. Sal\n2. Grupprum");
+            string? selection = Console.ReadLine();
             if (selection == "1")
             {
                 Console.WriteLine("Ange önskat nummer på salen");
-                Byte roomNumber;
-                bool roomNumberCheck = byte.TryParse(Console.ReadLine(), out roomNumber);
-                if (roomNumberCheck == true && roomNumber > 0)
+                if (byte.TryParse(Console.ReadLine(), out byte roomNumber) && roomNumber > 0)
                 {
-                    if (!Bokningssystem.AllRooms.Any(x => x.RoomNumber == roomNumber))
+                    if (Bokningssystem.AllRooms.Any(x => x.RoomNumber == roomNumber))
                     {
+                        Console.WriteLine("Rumsnumret finns redan.");
+                        return;
+                    }
 
-
-                        Console.WriteLine("Finns det en projektor i salen? \n1:Ja\n2:Nej");
-                        if (int.TryParse(Console.ReadLine(), out int projectorOrNot))
+                    Console.WriteLine("Finns det en projektor i salen? \n1: Ja\n2: Nej");
+                    if (int.TryParse(Console.ReadLine(), out int projectorOrNot))
+                    {
+                        Sal newSal;
+                        switch (projectorOrNot)
                         {
-                            Sal newSal;
-                            switch (projectorOrNot)
-                            {
-                                case 1:
-                                    newSal = new Sal("Sal", roomNumber, 40, true);
-                                    Bokningssystem.AllRooms.Add(newSal);
-                                    Console.WriteLine($"Sal med nummer {roomNumber} har lagts till!");
-                                    break;
-                                case 2:
-                                    newSal = new Sal("Sal", roomNumber, 40, false);
-                                    Bokningssystem.AllRooms.Add(newSal);
-                                    Console.WriteLine($"Sal med nummer {roomNumber} har lagts till!");
-                                    break;
-                                default:
-                                    Console.WriteLine("Ogiltigt val, försök igen.");
-                                    break;
-
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("Ogiltig inskrift");
+                            case 1:
+                                newSal = new Sal("Sal", roomNumber, 40, true);
+                                Bokningssystem.AllRooms.Add(newSal);
+                                Console.WriteLine($"Sal med nummer {roomNumber} har lagts till!");
+                                break;
+                            case 2:
+                                newSal = new Sal("Sal", roomNumber, 40, false);
+                                Bokningssystem.AllRooms.Add(newSal);
+                                Console.WriteLine($"Sal med nummer {roomNumber} har lagts till!");
+                                break;
+                            default:
+                                Console.WriteLine("Ogiltigt val, försök igen.");
+                                break;
                         }
                     }
                     else
                     {
-                        Console.WriteLine("Rumsnummret finns redan");
+                        Console.WriteLine("Ogiltig inskrift");
                     }
                 }
                 else
@@ -215,43 +204,39 @@ namespace Bokningssystem
             }
             else if (selection == "2")
             {
-                Console.WriteLine("Ange önskat nummer på Grupprummet");
-                Byte roomNumber;
-                bool roomNumberCheck = byte.TryParse(Console.ReadLine(), out roomNumber);
-                if (roomNumberCheck == true && roomNumber > 0)
+                Console.WriteLine("Ange önskat nummer på grupprummet");
+                if (byte.TryParse(Console.ReadLine(), out byte roomNumber) && roomNumber > 0)
                 {
-                    if (!Bokningssystem.AllRooms.Any(x => x.RoomNumber == roomNumber))
+                    if (Bokningssystem.AllRooms.Any(x => x.RoomNumber == roomNumber))
                     {
-                        Console.WriteLine("Finns det eluttag i rummet? \n1:Ja\n2:Nej");
-                        if (int.TryParse(Console.ReadLine(), out int projectorOrNot))
-                        {
-                            Grupprum newRoom;
-                            switch (projectorOrNot)
-                            {
-                                case 1:
-                                    newRoom = new Grupprum("Grupprum", roomNumber, 10, true);
-                                    Bokningssystem.AllRooms.Add(newRoom);
-                                    Console.WriteLine($"Grupprum med nummer {roomNumber} har lagts till!");
-                                    break;
-                                case 2:
-                                    newRoom = new Grupprum("Grupprum", roomNumber, 10, false);
-                                    Bokningssystem.AllRooms.Add(newRoom);
-                                    Console.WriteLine($"Grupprum med nummer {roomNumber} har lagts till!");
-                                    break;
-                                default:
-                                    Console.WriteLine("Ogiltigt val, försök igen.");
-                                    break;
+                        Console.WriteLine("Rumsnumret finns redan.");
+                        return;
+                    }
 
-                            }
-                        }
-                        else
+                    Console.WriteLine("Finns det eluttag i rummet? \n1: Ja\n2: Nej");
+                    if (int.TryParse(Console.ReadLine(), out int socketOrNot))
+                    {
+                        Grupprum newRoom;
+                        switch (socketOrNot)
                         {
-                            Console.WriteLine("Ogiltig inskrift");
+                            case 1:
+                                newRoom = new Grupprum("Grupprum", roomNumber, 10, true);
+                                Bokningssystem.AllRooms.Add(newRoom);
+                                Console.WriteLine($"Grupprum med nummer {roomNumber} har lagts till!");
+                                break;
+                            case 2:
+                                newRoom = new Grupprum("Grupprum", roomNumber, 10, false);
+                                Bokningssystem.AllRooms.Add(newRoom);
+                                Console.WriteLine($"Grupprum med nummer {roomNumber} har lagts till!");
+                                break;
+                            default:
+                                Console.WriteLine("Ogiltigt val, försök igen.");
+                                break;
                         }
                     }
                     else
                     {
-                        Console.WriteLine($"Rumsnummret finns redan: {roomNumber}");
+                        Console.WriteLine("Ogiltig inskrift");
                     }
                 }
                 else
@@ -264,6 +249,7 @@ namespace Bokningssystem
                 Console.WriteLine("Ogiltligt val");
             }
         }
+
         public static void ListRooms()
         {
             Console.WriteLine("Lista över alla salar och deras egenskaper:");
