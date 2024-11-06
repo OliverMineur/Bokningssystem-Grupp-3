@@ -52,7 +52,7 @@ namespace Bokningssystem
             Console.WriteLine("Ange kundens namn:");
             string clientNamn = Console.ReadLine();
 
-            Console.WriteLine("Ange bokningsstarttid (ÅÅÅÅ-MM-DD:MM):");
+            Console.WriteLine("Ange bokningsstarttid (ÅÅÅÅ-MM-DD HH:MM)");
             DateTime startTime;
             if (!DateTime.TryParse( Console.ReadLine(), out startTime))
             {
