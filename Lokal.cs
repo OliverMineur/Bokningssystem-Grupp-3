@@ -254,6 +254,7 @@ namespace Bokningssystem
 
         public static void ListRooms()
         {
+            // Skriver ut en lista över alla salar och deras egenskaper
             Console.WriteLine("Lista över alla salar och deras egenskaper:");
             foreach (var room in Bokningssystem.AllRooms)
             {
@@ -263,6 +264,7 @@ namespace Bokningssystem
         }
         public static void SaveRoomsToFile(string filePath)
         {
+            // Sparar alla salar till en fil
             using (StreamWriter writer = new StreamWriter(filePath))
             {
                 foreach (var room in Bokningssystem.AllRooms)
@@ -274,6 +276,7 @@ namespace Bokningssystem
 
         public static void LoadRoomsFromFile(string filePath)
         {
+            // Laddar salar från en fil
             if (File.Exists(filePath))
             {
                 using (StreamReader reader = new StreamReader(filePath))
@@ -287,6 +290,7 @@ namespace Bokningssystem
                         int numberOfChairs = int.Parse(parts[2]);
                         bool isBooked = bool.Parse(parts[3]);
 
+                        // Skapar och lägger till rummet i listan baserat på rumstyp
                         if (roomType == "Sal")
                         {
                             Bokningssystem.AllRooms.Add(new Sal(roomType, roomNumber, numberOfChairs, isBooked));

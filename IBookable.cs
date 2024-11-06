@@ -8,9 +8,12 @@ using System;
 
 namespace Bokningssystem
 {
+    // Interface för bokningsbara objekt (ET)
     internal interface IBookable
     {
+        // Metod för att boka ett objekt
         bool Book(DateTime startTime, TimeSpan duration, string clientName);
+        // Metod för att avboka
         void UnBook();
     }
 }
