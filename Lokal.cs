@@ -122,7 +122,7 @@ namespace Bokningssystem
         }
 
         // Metod för att generera ett unikt boknings-ID
-        private int GenerateBookingID()
+        public static int GenerateBookingID()
         {
             int newBookingID;
             Random rnd = new Random();

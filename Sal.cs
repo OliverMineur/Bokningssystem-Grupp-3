@@ -31,7 +31,7 @@ internal class Sal : Lokal
         BookingStartTime = startTid;
         BookingDuration = duration;
         ClientName = clientName;
-        BookingID = new Random().Next(1000, 9999);
+        BookingID = GenerateBookingID();
 
         Console.WriteLine($"Salen är bokad av {clientName} från {startTid} i {duration.TotalHours} timmar.");
         return true;

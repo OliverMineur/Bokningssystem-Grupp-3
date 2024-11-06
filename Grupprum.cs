@@ -32,7 +32,7 @@ namespace Bokningssystem
             BookingStartTime = startTid;
             BookingDuration = duration;
             ClientName = bokadAv;
-            BookingID = new Random().Next(1000, 9999);
+            BookingID = GenerateBookingID();
 
             Console.WriteLine($"Grupprummet är bokat av {bokadAv} från {startTid} i {duration.TotalHours} timmar.");
             return true;
