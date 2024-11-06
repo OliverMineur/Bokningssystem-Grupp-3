@@ -60,12 +60,14 @@ namespace Bokningssystem
                 return;
             }
             Console.WriteLine("Ange varaktighet i timmar:");
-            TimeSpan duration;
-            if (!TimeSpan.TryParse( Console.ReadLine(),out duration))
+            int durationHours;
+            
+            if (!int.TryParse( Console.ReadLine(),out durationHours))
             {
                 Console.WriteLine("Ogiltigt varaktighet");
                 return;
             }
+            TimeSpan duration = new TimeSpan(durationHours, 0, 0);
             if (valtRum.Book(startTime, duration, clientNamn))
             {
                 Console.WriteLine("Bokningen är genomförd");
