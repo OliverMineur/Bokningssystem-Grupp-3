@@ -17,7 +17,7 @@ namespace Bokningssystem
         public string ClientName { get; protected set; } = ""; // Namnet på klienten som bokade rummet
         public int BookingID { get; protected set; } // Unikt boknings-ID
 
-        // Visar en meny för att boka ett rum
+        // Visar en meny för att boka ett rum (JP)
         public static void BokningsMeny()
         {
             Console.WriteLine("Välj rumstyp att boka:");
@@ -124,7 +124,7 @@ namespace Bokningssystem
             return true; // Bokning lyckades
         }
 
-        // Funktion för att avboka ett rum
+        // Funktion för att avboka ett rum (JP)
         public void UnBook()
         {
             IsBooked = false; // Återställ bokningsstatus
@@ -132,7 +132,7 @@ namespace Bokningssystem
             Console.WriteLine("Rummet har avbokats.");
         }
 
-        // Genererar ett unikt boknings-ID som inte redan används
+        // Genererar ett unikt boknings-ID som inte redan används (JP)
         public static int GenerateBookingID()
         {
             int newBookingID;

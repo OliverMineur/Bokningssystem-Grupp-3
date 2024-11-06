@@ -177,9 +177,27 @@ namespace Bokningssystem
                                     case 3: // Filtrera alla bokningar
                                         FilterBookings();
                                         break;
-                                    case 4:
-                                        //Ta bort alla bokningar
+                                    case 4: // Avboka en bokning (JP)
+                                        Console.WriteLine("Ange boknings-ID för att avboka:");
+                                        if (int.TryParse(Console.ReadLine(), out int bookingID))
+                                        {
+                                            Lokal roomToCancel = Lokal.FindRoomByID(bookingID);
+                                            if (roomToCancel != null)
+                                            {
+                                                roomToCancel.UnBook();
+                                                Console.WriteLine("Bokningen har avbokats.");
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Ingen bokning hittades med angivet ID.");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Ogiltigt boknings-ID.");
+                                        }
                                         break;
+
                                     case 5:
                                         //Uppdatera bokning
                                         break;
