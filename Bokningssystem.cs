@@ -9,7 +9,7 @@ namespace Bokningssystem
 
         public Bokningssystem()
         {
-            
+
         }
 
         //public Lokal GetBookingWithId(int ID)
@@ -26,6 +26,103 @@ namespace Bokningssystem
         //    }
         //    return false;
         //}
+
+        public static void ShowAllBookings(int whatToSort, int ascendingOrDecending)
+        {
+            List<Lokal> orderedList = null;
+            try
+            {
+                switch ((whatToSort, ascendingOrDecending))
+                {
+                    case (0, 0):
+                        foreach (Lokal room in AllRooms)
+                        {
+                            if (room.IsBooked == true)
+                            {
+                                Console.WriteLine("" + room.RoomNumber + " is booked by " +
+                                                        room.ClientName + " from " +
+                                                        room.BookingStartTime.ToString("M") + " " +
+                                                        room.BookingStartTime.ToString("HH:mm") + " to " +
+                                                        (room.BookingStartTime + room.BookingDuration).ToString("HH:mm"));
+                            }
+                        }
+                        break;
+                    case (1, 1):
+                        orderedList = AllRooms.OrderBy(x => x.RoomType).ToList();
+                        break;
+                    case (2, 1):
+                        orderedList = AllRooms.OrderBy(x => x.BookingStartTime).ToList();
+                        break;
+                    case (3, 1):
+                        orderedList = AllRooms.OrderBy(x => x.RoomNumber).ToList();
+                        break;
+                    case (1, 2):
+                        orderedList = AllRooms.OrderByDescending(x => x.RoomType).ToList();
+                        break;
+                    case (2, 2):
+                        orderedList = AllRooms.OrderByDescending(x => x.BookingStartTime).ToList();
+                        break;
+                    case (3, 2):
+                        orderedList = AllRooms.OrderByDescending(x => x.RoomNumber).ToList();
+                        break;
+                    case (4, 1):
+                        Console.WriteLine("Vilket år vill du söka på:\nFormat exempel \"1998\"");
+                        int searchForyear = int.Parse(Console.ReadLine());
+                        foreach (Lokal room in AllRooms)
+                        {
+                            if (searchForyear == room.BookingStartTime.Year)
+                            {
+                                Console.WriteLine("" + room.RoomNumber + " is booked by " +
+                                                        room.ClientName + " from " +
+                                                        room.BookingStartTime.ToString("M") + " " +
+                                                        room.BookingStartTime.ToString("HH:mm") + " to " +
+                                                        (room.BookingStartTime + room.BookingDuration).ToString("HH:mm"));
+                            }
+                        }
+                        break;
+                    default:
+                        Console.WriteLine("Inget av alternativen valdes.");
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (orderedList != null)
+                {
+                    foreach (Lokal room in orderedList)
+                    {
+                        if (room.IsBooked == true)
+                        {
+                            Console.WriteLine("" + room.RoomNumber + " is booked by " +
+                                                room.ClientName + " from " +
+                                                room.BookingStartTime.ToString("M") + " " +
+                                                room.BookingStartTime.ToString("HH:mm") + " to " +
+                                                (room.BookingStartTime + room.BookingDuration).ToString("HH:mm"));
+                        }
+                    }
+                }
+            }
+        }
+        public static void FilterBookings()
+        {
+            try
+            {
+                Console.WriteLine("Hur vill du filtrera listan?\n1:Sortera efter rumstyp\n2:Sortera efter datum\n3:Sortera efter rum nummer\n4:Visa bokningar på specifika år");
+                int firstChoice = int.Parse(Console.ReadLine());
+                Console.WriteLine("Visa i:\n1:Stigande ordning\n2:Fallande ordning");
+                int secondChoice = int.Parse(Console.ReadLine());
+                ShowAllBookings(firstChoice, secondChoice);
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Ogiltig inskrift, ange bara ett nummer.");
+            }
+        }
+
         static void Main(string[] args)
         {
             AllRooms.Add(new Sal("Sal",12, 40, false));
@@ -37,6 +134,11 @@ namespace Bokningssystem
             AllRooms.Add(new Grupprum("Grupprum", 14, 20, true));
             AllRooms.Add(new Grupprum("Grupprum", 14, 20, true));
             AllRooms.Add(new Sal("Sal", 12, 40, false));
+            AllRooms[1].Booked();
+            AllRooms[2].Booked();
+            AllRooms[3].Booked();
+            AllRooms[4].Booked();
+            AllRooms[5].Booked();
 
 
             //foreach (Lokal item in AllRooms)
@@ -60,7 +162,7 @@ namespace Bokningssystem
                     switch (menuChoice)
                     {
                         case 1:
-                            Console.WriteLine("Hantera bokningar:\n1:Skapa bokning\n2:Se alla bokningar\n3:Ta bort bokning\n4:Uppdatera bokning");
+                            Console.WriteLine("Hantera bokningar:\n1:Skapa bokning\n2:Se alla bokningar\n3:Filtrera alla bokningar\n4:Ta bort bokning\n5:Uppdatera bokning\n6:Avsluta");
                             if (int.TryParse(Console.ReadLine(), out int secondMenuChoice))
                             {
                                 switch (secondMenuChoice)
@@ -70,18 +172,20 @@ namespace Bokningssystem
                                         Lokal.BokningsMeny();
                                         break;
                                     case 2:
-                                        //Se alla bokningar
+                                        ShowAllBookings(0, 0);
                                         break;
                                     case 3:
-                                        //Ta bort alla bokningar
+                                        FilterBookings();
                                         break;
                                     case 4:
-                                        //Uppdatera bokning
+                                        //Ta bort alla bokningar
                                         break;
                                     case 5:
-                                        // Avsluta Program
-                                        Console.WriteLine("Avslutar programmet");
-                                        return;
+                                        //Uppdatera bokning
+                                        break;
+                                    case 6:
+                                        Environment.Exit(0);
+                                        break;
                                     default:
                                         Console.WriteLine("Ogiltigt val, försök igen.");
                                         break;
