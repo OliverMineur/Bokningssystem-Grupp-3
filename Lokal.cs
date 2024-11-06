@@ -270,11 +270,6 @@ namespace Bokningssystem
             {
                 Console.WriteLine($"Rumstyp: {room.RoomType}, Rumsnummer: {room.RoomNumber}, Antal stolar: {room.NumberOfChairs}, Bokad: {room.IsBooked}");
             }
-            if (Bokningssystem.AllRooms.Any(x => x.RoomNumber == roomNumber))
-            {
-                Console.WriteLine("Rumsnumret finns redan.");
-                return;
-            }
 
         }
         public static void SaveRoomsToFile(string filePath)
