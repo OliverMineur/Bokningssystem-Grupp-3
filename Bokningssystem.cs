@@ -157,7 +157,7 @@ namespace Bokningssystem
                     switch (menuChoice)
                     {
                         case 1:
-                            Console.WriteLine("Hantera bokningar:\n1:Skapa bokning\n2:Se alla bokningar\n3:Filtrera alla bokningar\n4:Ta bort bokning\n5:Uppdatera bokning");
+                            Console.WriteLine("Hantera bokningar:\n1:Skapa bokning\n2:Se alla bokningar\n3:Filtrera alla bokningar\n4:Ta bort bokning\n5:Uppdatera bokning\n6:Avsluta");
                             if (int.TryParse(Console.ReadLine(), out int secondMenuChoice))
                             {
                                 switch (secondMenuChoice)
@@ -176,6 +176,9 @@ namespace Bokningssystem
                                         break;
                                     case 5:
                                         //Uppdatera bokning
+                                        break;
+                                    case 6:
+                                        Environment.Exit(0);
                                         break;
                                     default:
                                         Console.WriteLine("Inget valdes, försök igen.");
@@ -207,7 +210,7 @@ namespace Bokningssystem
                             }
                             else
                             {
-                                throw new InvalidDataException();
+                                Console.WriteLine("Ogiltig inskrift");
                             }
                             break;
                         default:
@@ -217,7 +220,7 @@ namespace Bokningssystem
                 }
                 else
                 {
-                    throw new InvalidDataException();
+                    Console.WriteLine("Ogiltig inskrift");
                 }
             }
         }
