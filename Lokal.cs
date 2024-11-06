@@ -43,7 +43,7 @@ namespace Bokningssystem
                 Console.WriteLine("Ogiltigt inmatning");
                 return;
             }
-            Lokal valtRum = ledigaRum.FirstOrDefault(rum => rum.RoomNumber == roomNumber);
+            Lokal valtRum = (Lokal)ledigaRum.FirstOrDefault(rum => rum.RoomNumber == roomNumber).MemberwiseClone();
             if (valtRum == null)
             {
                 Console.WriteLine("Rum inte hittat.");
