@@ -11,7 +11,7 @@ internal class Sal : Lokal
         Socket = socket;
     }
 
-    public override bool Boka(DateTime startTid, TimeSpan duration, string clientName)
+    public override bool Book(DateTime startTid, TimeSpan duration, string clientName)
     {
         if (IsBooked)
         {

@@ -12,7 +12,7 @@ namespace Bokningssystem
             Projector = projector;
         }
 
-        public override bool Boka(DateTime startTid, TimeSpan duration, string bokadAv)
+        public override bool Book(DateTime startTid, TimeSpan duration, string bokadAv)
         {
             if (IsBooked)
             {
