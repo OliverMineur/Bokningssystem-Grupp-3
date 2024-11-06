@@ -35,6 +35,7 @@ namespace Bokningssystem
             BookingID = GenerateBookingID();
 
             Console.WriteLine($"Grupprummet är bokat av {bokadAv} från {startTid} i {duration.TotalHours} timmar.");
+            Console.WriteLine($"Bokning lyckades! Boknings-ID: {BookingID}");
             return true;
         }
 
