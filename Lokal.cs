@@ -70,6 +70,7 @@ namespace Bokningssystem
             TimeSpan duration = new TimeSpan(durationHours, 0, 0);
             if (valtRum.Book(startTime, duration, clientNamn))
             {
+                Bokningssystem.AllRooms.Add(valtRum);
                 Console.WriteLine("Bokningen är genomförd");
             }
             else

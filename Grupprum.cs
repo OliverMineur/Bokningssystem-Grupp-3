@@ -37,7 +37,7 @@ namespace Bokningssystem
             Console.WriteLine($"Grupprummet är bokat av {bokadAv} från {startTid} i {duration.TotalHours} timmar.");
             return true;
         }
-
+        
         public void UnBook()
         {
             if (!IsBooked)
