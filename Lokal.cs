@@ -267,7 +267,7 @@ namespace Bokningssystem
             {
                 foreach (var room in Bokningssystem.AllRooms)
                 {
-                    writer.WriteLine($"{room.RoomType},{room.RoomNumber},{room.NumberOfChairs},{room.IsBooked}");
+                    writer.WriteLine($"{room.RoomType},{room.RoomNumber},{room.NumberOfChairs}");
                 }
             }
         }
