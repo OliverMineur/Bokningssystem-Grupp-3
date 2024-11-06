@@ -168,6 +168,7 @@ namespace Bokningssystem
                                         //Ta bort alla bokningar
                                         break;
                                     case 5:
+                                        Lokal.UpdateRoom();
                                         //Uppdatera bokning
                                         break;
                                     case 6:
