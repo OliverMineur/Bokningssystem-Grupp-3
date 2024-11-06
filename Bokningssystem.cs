@@ -185,7 +185,7 @@ namespace Bokningssystem
                             }
                             else
                             {
-                                throw new InvalidDataException();
+                                Console.WriteLine("");
                             }
                             break;
                         case 2:
