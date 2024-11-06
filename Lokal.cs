@@ -65,7 +65,7 @@ namespace Bokningssystem
                 Console.WriteLine("Ogiltigt varaktighet");
                 return;
             }
-            if (valtRum.Boka(startTime, duration, clientNamn))
+            if (valtRum.Book(startTime, duration, clientNamn))
             {
                 Console.WriteLine("Bokningen är genomförd");
             }
@@ -84,7 +84,7 @@ namespace Bokningssystem
         }
 
         // Implementerar metoden Boka från IBookable
-        public virtual bool Boka(DateTime startTime, TimeSpan duration, string clientName)
+        public virtual bool Book(DateTime startTime, TimeSpan duration, string clientName)
         {
             if (IsBooked)
             {

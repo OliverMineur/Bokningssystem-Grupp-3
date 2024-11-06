@@ -125,20 +125,7 @@ namespace Bokningssystem
 
         static void Main(string[] args)
         {
-            AllRooms.Add(new Sal("Sal",12, 40, false));
-            AllRooms.Add(new Grupprum("Grupprum",14, 20, true));
-            AllRooms.Add(new Sal("Sal", 12, 40, false));
-            AllRooms.Add(new Grupprum("Grupprum", 14, 20, true));
-            AllRooms.Add(new Grupprum("Grupprum",14, 20, true));
-            AllRooms.Add(new Sal("Sal", 12, 40, false));
-            AllRooms.Add(new Grupprum("Grupprum", 14, 20, true));
-            AllRooms.Add(new Grupprum("Grupprum", 14, 20, true));
-            AllRooms.Add(new Sal("Sal", 12, 40, false));
-            AllRooms[1].Booked();
-            AllRooms[2].Booked();
-            AllRooms[3].Booked();
-            AllRooms[4].Booked();
-            AllRooms[5].Booked();
+
 
 
             //foreach (Lokal item in AllRooms)
