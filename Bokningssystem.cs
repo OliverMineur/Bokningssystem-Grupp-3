@@ -131,6 +131,7 @@ namespace Bokningssystem
 
         static void Main(string[] args)
         {
+            //Lokal.LoadRoomsFromFile();
 
 
 
@@ -177,6 +178,7 @@ namespace Bokningssystem
                                         //Uppdatera bokning
                                         break;
                                     case 6:
+                                        Lokal.SaveRoomsToFile();
                                         Environment.Exit(0);
                                         break;
                                     default:
