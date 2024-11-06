@@ -6,8 +6,6 @@ namespace Bokningssystem
 {
     public abstract class Lokal : IBookable
     {
-        private static byte roomNumber;
-
         public string RoomType { get; set; } // "Sal" eller "Grupprum"
         public byte RoomNumber { get; set; }
         public int NumberOfChairs { get; set; }
@@ -271,11 +269,6 @@ namespace Bokningssystem
             foreach (var room in Bokningssystem.AllRooms)
             {
                 Console.WriteLine($"Rumstyp: {room.RoomType}, Rumsnummer: {room.RoomNumber}, Antal stolar: {room.NumberOfChairs}, Bokad: {room.IsBooked}");
-            }
-            if (Bokningssystem.AllRooms.Any(x => x.RoomNumber == roomNumber))
-            {
-                Console.WriteLine("Rumsnumret finns redan.");
-                return;
             }
 
         }
