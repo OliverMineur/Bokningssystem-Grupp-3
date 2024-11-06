@@ -43,7 +43,7 @@ namespace Bokningssystem
                 Console.WriteLine("Ogiltigt inmatning");
                 return;
             }
-            Lokal valtRum = ledigaRum.FirstOrDefault(rum => rum.RoomNumber == roomNumber);
+            Lokal valtRum = (Lokal)ledigaRum.FirstOrDefault(rum => rum.RoomNumber == roomNumber).MemberwiseClone();
             if (valtRum == null)
             {
                 Console.WriteLine("Rum inte hittat.");
@@ -52,7 +52,7 @@ namespace Bokningssystem
             Console.WriteLine("Ange kundens namn:");
             string clientNamn = Console.ReadLine();
 
-            Console.WriteLine("Ange bokningsstarttid (ÅÅÅÅ-MM-DD:MM):");
+            Console.WriteLine("Ange bokningsstarttid (ÅÅÅÅ-MM-DD HH:MM)");
             DateTime startTime;
             if (!DateTime.TryParse( Console.ReadLine(), out startTime))
             {
@@ -66,7 +66,7 @@ namespace Bokningssystem
                 Console.WriteLine("Ogiltigt varaktighet");
                 return;
             }
-            if (valtRum.Boka(startTime, duration, clientNamn))
+            if (valtRum.Book(startTime, duration, clientNamn))
             {
                 Console.WriteLine("Bokningen är genomförd");
             }
@@ -85,7 +85,7 @@ namespace Bokningssystem
         }
 
         // Implementerar metoden Boka från IBookable
-        public virtual bool Boka(DateTime startTime, TimeSpan duration, string clientName)
+        public virtual bool Book(DateTime startTime, TimeSpan duration, string clientName)
         {
             if (IsBooked)
             {
@@ -122,7 +122,7 @@ namespace Bokningssystem
         }
 
         // Metod för att generera ett unikt boknings-ID
-        private int GenerateBookingID()
+        public static int GenerateBookingID()
         {
             int newBookingID;
             Random rnd = new Random();

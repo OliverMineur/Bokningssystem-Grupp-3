@@ -12,7 +12,7 @@ namespace Bokningssystem
             Projector = projector;
         }
 
-        public override bool Boka(DateTime startTid, TimeSpan duration, string bokadAv)
+        public override bool Book(DateTime startTid, TimeSpan duration, string bokadAv)
         {
             if (IsBooked)
             {
@@ -32,7 +32,7 @@ namespace Bokningssystem
             BookingStartTime = startTid;
             BookingDuration = duration;
             ClientName = bokadAv;
-            BookingID = new Random().Next(1000, 9999);
+            BookingID = GenerateBookingID();
 
             Console.WriteLine($"Grupprummet är bokat av {bokadAv} från {startTid} i {duration.TotalHours} timmar.");
             return true;
