@@ -30,6 +30,7 @@ namespace Bokningssystem
         public static void ShowAllBookings(int whatToSort, int ascendingOrDecending)
         {
             List<Lokal> orderedList = null;
+            bool roomsBooked = false;
             try
             {
                 switch ((whatToSort, ascendingOrDecending))
@@ -39,12 +40,17 @@ namespace Bokningssystem
                         {
                             if (room.IsBooked == true)
                             {
-                                Console.WriteLine("" + room.RoomNumber + " is booked by " +
-                                                        room.ClientName + " from " +
+                                Console.WriteLine("" + room.RoomNumber + " bokad av " +
+                                                        room.ClientName + " från " +
                                                         room.BookingStartTime.ToString("M") + " " +
-                                                        room.BookingStartTime.ToString("HH:mm") + " to " +
+                                                        room.BookingStartTime.ToString("HH:mm") + " till " +
                                                         (room.BookingStartTime + room.BookingDuration).ToString("HH:mm"));
+                                roomsBooked = true;
                             }
+                        }
+                        if (!roomsBooked)
+                        {
+                            Console.WriteLine("Inga rum är bokade.");
                         }
                         break;
                     case (1, 1):
