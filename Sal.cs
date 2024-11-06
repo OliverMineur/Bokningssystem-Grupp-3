@@ -1,20 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bokningssystem;
+using System;
 
-namespace Bokningssystem
+internal class Sal : Lokal
 {
-    internal class Sal: Lokal
+    public bool Socket { get; set; }
+
+    public Sal(string roomType, byte roomNumber, int numberOfChairs, bool socket)
+        : base(roomType, roomNumber, numberOfChairs)
     {
-        public bool Projector { get; set; }
-        public Sal(String roomType, byte roomNumber, int numberOfChairs, bool projector)
+        Socket = socket;
+    }
+
+    public override bool Book(DateTime startTid, TimeSpan duration, string clientName)
+    {
+        if (IsBooked)
         {
-            RoomType = roomType;
-            RoomNumber = roomNumber;
-            NumberOfChairs = numberOfChairs;
-            Projector = projector;
+            Console.WriteLine("Salen är redan bokad.");
+            return false;
         }
+
+        // Kontrollera kapacitet
+        if (NumberOfChairs > 40)
+        {
+            Console.WriteLine("Bokning misslyckades: Kapacitetsgräns överskriden för Sal.");
+            return false;
+        }
+
+        // Sätt bokningsinformation
+        IsBooked = true;
+        BookingStartTime = startTid;
+        BookingDuration = duration;
+        ClientName = clientName;
+        BookingID = GenerateBookingID();
+
+        Console.WriteLine($"Salen är bokad av {clientName} från {startTid} i {duration.TotalHours} timmar.");
+        return true;
+    }
+
+    public void UnBook()
+    {
+        if (!IsBooked)
+        {
+            Console.WriteLine("Salen är inte bokad och kan därför inte avbokas.");
+            return;
+        }
+
+        IsBooked = false;
+        Console.WriteLine("Salen har avbokats.");
     }
 }
