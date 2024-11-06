@@ -19,7 +19,7 @@ namespace Bokningssystem
         public int BookingID { get; protected set; } // Unikt boknings-ID
 
         // Visar en meny för att boka ett rum
-        public static void BokningsMeny()
+        public static bool BokningsMeny()
         {
             Console.WriteLine("Välj rumstyp att boka:");
             Console.WriteLine("1. Sal");
@@ -32,7 +32,7 @@ namespace Bokningssystem
             if (!ledigaRum.Any())
             {
                 Console.WriteLine("Inga lediga rum av denna typ.");
-                return;
+                return false;
             }
             Console.WriteLine("Välj rum nummer att boka");
             foreach (var rum in ledigaRum)
@@ -45,14 +45,14 @@ namespace Bokningssystem
             if (!byte.TryParse( Console.ReadLine(), out roomNumber))
             {
                 Console.WriteLine("Ogiltigt inmatning");
-                return;
+                return false;
             }
             // Klonar valt rum för att boka det
             Lokal valtRum = (Lokal)ledigaRum.FirstOrDefault(rum => rum.RoomNumber == roomNumber).MemberwiseClone();
             if (valtRum == null)
             {
                 Console.WriteLine("Rum inte hittat.");
-                return;
+                return false;
             }
             // Få klientnamn för bokningen
             Console.WriteLine("Ange kundens namn:");
@@ -64,7 +64,7 @@ namespace Bokningssystem
             if (!DateTime.TryParse( Console.ReadLine(), out startTime))
             {
                 Console.WriteLine("Ogiltigt tid");
-                return;
+                return false;
             }
             // Ange varaktighet för bokningen
             Console.WriteLine("Ange varaktighet i timmar:");
@@ -73,7 +73,7 @@ namespace Bokningssystem
             if (!int.TryParse( Console.ReadLine(),out durationHours))
             {
                 Console.WriteLine("Ogiltigt varaktighet");
-                return;
+                return false;
             }
             // Bokar rummet om tillgängligt
             TimeSpan duration = new TimeSpan(durationHours, 0, 0);
@@ -81,10 +81,12 @@ namespace Bokningssystem
             {
                 Bokningssystem.AllRooms.Add(valtRum);
                 Console.WriteLine("Bokningen är genomförd");
+                return true;
             }
             else
             {
                 Console.WriteLine("Kunde inte boka rummet");
+                return false;
             }
         }
 
@@ -322,38 +324,22 @@ namespace Bokningssystem
 
             if (int.TryParse(Console.ReadLine(), out int userSearchId))
             {
-                foreach (Lokal booking in Bokningssystem.AllRooms)
+                List<Lokal> allRoomsCopy = Bokningssystem.AllRooms.ToList();
+                foreach (Lokal booking in allRoomsCopy)
                 {
-                    if (Bokningssystem.AllRooms.Any(x => x.BookingID == userSearchId))
+                    if (booking.BookingID == userSearchId)
                     {
                         Console.WriteLine("Vad vill du göra?");
                         Console.WriteLine("1.Byta sal\n2.Ändra tid\n3.Båda");
                         if (int.TryParse(Console.ReadLine(), out int userChoice))
                         {
-                            //List<Lokal> ledigaRum = Bokningssystem.AllRooms.Where(rum => !rum.IsBooked).ToList();
                             switch (userChoice)
                             {
                                 case 1:
-                                    Console.WriteLine("Lediga rum:");
-                                    //Skriv ut lediga salar/grupprum här
-                                    Console.WriteLine("Skriv in nummret på rummet du vill boka:");
-                                    if (byte.TryParse(Console.ReadLine(), out byte userRoomChoice))
+                                    if (BokningsMeny())
                                     {
-                                        if (Bokningssystem.AllRooms.Any(rum => rum.RoomNumber == userRoomChoice && !rum.IsBooked))
-                                        {
-                                            booking.RoomNumber = userRoomChoice;
-                                            Console.WriteLine($"Rummet ändrat till {booking.RoomType} nummer {booking.RoomNumber}");
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            Console.WriteLine("Rummet är inte ledigt");
-                                            break;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Felaktik inmatning");
+                                        Bokningssystem.AllRooms.Remove(booking);
+                                        return;
                                     }
                                     break;
 
@@ -373,8 +359,9 @@ namespace Bokningssystem
                                         return;
                                     }
                                     Console.WriteLine("Ange varaktighet i timmar:");
-                                    if (!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan duration))
+                                    if (int.TryParse(Console.ReadLine(), out int durationHours))
                                     {
+                                        TimeSpan duration = new TimeSpan(durationHours, 0, 0);
                                         booking.BookingDuration = duration;
                                     }
                                     else
@@ -386,14 +373,14 @@ namespace Bokningssystem
                                     Console.WriteLine($"Uppdaterad bokning:\nRumsnummer: {booking.RoomNumber}\n" +
                                         $"Starttid: {booking.BookingStartTime}\n" +
                                         $"Längd på bokning: {booking.BookingDuration}");
-                                    break;
-                                case 3:
+                                    return;
+                                default:
+                                    Console.WriteLine("Ogiltigt menyval");
                                     break;
                             }
                         }
                     }
                 }
-                Console.WriteLine("Bokning hittades inte");
             }
             else
             {
