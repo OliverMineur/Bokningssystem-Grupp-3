@@ -5,18 +5,20 @@ using System.Timers;
 
 namespace Bokningssystem
 {
+    // Representerar en abstrakt lokal som kan bokas, t.ex. ett grupprum eller en sal
     public abstract class Lokal : IBookable
     {
 
         public string RoomType { get; set; } // "Sal" eller "Grupprum"
-        public byte RoomNumber { get; set; }
-        public int NumberOfChairs { get; set; }
-        public bool IsBooked { get; protected set; }
-        public DateTime BookingStartTime { get; protected set; }
-        public TimeSpan BookingDuration { get; protected set; }
-        public string ClientName { get; protected set; } = "";
-        public int BookingID { get; protected set; }
+        public byte RoomNumber { get; set; } // Unikt nummer för varje rum
+        public int NumberOfChairs { get; set; } // Antal stolar i rummet
+        public bool IsBooked { get; protected set; }  // Anger om rummet är bokat eller ej
+        public DateTime BookingStartTime { get; protected set; } // Starttid för bokningen
+        public TimeSpan BookingDuration { get; protected set; } // Varaktigheten för bokningen
+        public string ClientName { get; protected set; } = ""; // Namnet på klienten som bokade rummet
+        public int BookingID { get; protected set; } // Unikt boknings-ID
 
+        // Visar en meny för att boka ett rum
         public static void BokningsMeny()
         {
             Console.WriteLine("Välj rumstyp att boka:");
@@ -39,36 +41,45 @@ namespace Bokningssystem
 
             }
             byte roomNumber;
+            // Läsa in rumsnumret för bokning
             if (!byte.TryParse( Console.ReadLine(), out roomNumber))
             {
                 Console.WriteLine("Ogiltigt inmatning");
                 return;
             }
+            // Klonar valt rum för att boka det
             Lokal valtRum = (Lokal)ledigaRum.FirstOrDefault(rum => rum.RoomNumber == roomNumber).MemberwiseClone();
             if (valtRum == null)
             {
                 Console.WriteLine("Rum inte hittat.");
                 return;
             }
+            // Få klientnamn för bokningen
             Console.WriteLine("Ange kundens namn:");
             string clientNamn = Console.ReadLine();
 
-            Console.WriteLine("Ange bokningsstarttid (ÅÅÅÅ-MM-DD:MM):");
+            // Ange starttid för bokningen
+            Console.WriteLine("Ange bokningsstarttid (ÅÅÅÅ-MM-DD HH:MM)");
             DateTime startTime;
             if (!DateTime.TryParse( Console.ReadLine(), out startTime))
             {
                 Console.WriteLine("Ogiltigt tid");
                 return;
             }
+            // Ange varaktighet för bokningen
             Console.WriteLine("Ange varaktighet i timmar:");
-            TimeSpan duration;
-            if (!TimeSpan.TryParse( Console.ReadLine(),out duration))
+            int durationHours;
+            
+            if (!int.TryParse( Console.ReadLine(),out durationHours))
             {
                 Console.WriteLine("Ogiltigt varaktighet");
                 return;
             }
+            // Bokar rummet om tillgängligt
+            TimeSpan duration = new TimeSpan(durationHours, 0, 0);
             if (valtRum.Book(startTime, duration, clientNamn))
             {
+                Bokningssystem.AllRooms.Add(valtRum);
                 Console.WriteLine("Bokningen är genomförd");
             }
             else
@@ -77,7 +88,7 @@ namespace Bokningssystem
             }
         }
 
-        // Funktion för att boka ett rum
+        // Konstruktor för att initiera ett nytt rum med typ, nummer och antal stolar
         public Lokal(String roomType, byte roomNumber, int numberOfChairs)
         {
             RoomType = roomType;
@@ -85,7 +96,7 @@ namespace Bokningssystem
             NumberOfChairs = numberOfChairs;
         }
 
-        // Implementerar metoden Boka från IBookable
+        // Implementerar metoden Boka från IBookable. Implementerar bokning av rummet
         public virtual bool Book(DateTime startTime, TimeSpan duration, string clientName)
         {
             if (IsBooked)
@@ -94,7 +105,7 @@ namespace Bokningssystem
                 return false; // Rummet är redan bokat
             }
 
-            // Kontrollera kapacitet beroende på rumstyp
+            // Kontrollera om antalet stolar överstiger kapacitetsgränsen beroende på rumstyp
             if ((RoomType == "Sal" && NumberOfChairs > 40) ||
                 (RoomType == "Grupprum" && NumberOfChairs > 10))
             {
@@ -102,7 +113,7 @@ namespace Bokningssystem
                 return false; // Bokning misslyckades pga kapacitet
             }
 
-            // Generera ett unikt bokningsnummer
+            // Genererar ett unikt boknings-ID och uppdaterar bokningsinformation
             BookingID = GenerateBookingID();
             ClientName = clientName;
             BookingStartTime = startTime;
@@ -122,7 +133,7 @@ namespace Bokningssystem
             Console.WriteLine("Rummet har avbokats.");
         }
 
-        // Metod för att generera ett unikt boknings-ID
+        // Genererar ett unikt boknings-ID som inte redan används
         public static int GenerateBookingID()
         {
             int newBookingID;
@@ -135,27 +146,27 @@ namespace Bokningssystem
 
             return newBookingID;
         }
+        // Hittar ett rum baserat på ett boknings-ID
         public static Lokal FindRoomByID(int bookingID)
         {
-            Bokningssystem.AllRooms.FirstOrDefault(room => room.BookingID == bookingID);
-
-            int searchID = 1234; // Sök-ID
-            Lokal room = FindRoomByID(searchID);
-            
+            // Söker efter det första rummet i listan med ett matchande boknings-ID (JP)
+            Lokal room = Bokningssystem.AllRooms.FirstOrDefault(r => r.BookingID == bookingID);
+            // Om ett rum med angivet boknings-ID hittas, visa dess uppgifter och returnera det
             if (room != null)
             {
                 Console.WriteLine($"Rum hittades: {room.RoomType} med nummer {room.RoomNumber}");
                 return room;
             }
+            // Om inget rum med angivet boknings-ID hittas, visa ett meddelande och returnera null
             else
             {
                 Console.WriteLine("Ingen bokning hittades med det angivna ID:t");
-                return room;
+                return null;
             }
 
         }
 
-
+        // Lägger till ett nytt rum i systemet
         public static void AddRoom()
         {
             Console.WriteLine("Vad vill du lägga till?");
@@ -179,6 +190,7 @@ namespace Bokningssystem
                         switch (projectorOrNot)
                         {
                             case 1:
+                                // Logik för att lägga till en ny sal
                                 newSal = new Sal("Sal", roomNumber, 40, true);
                                 Bokningssystem.AllRooms.Add(newSal);
                                 Console.WriteLine($"Sal med nummer {roomNumber} har lagts till!");
@@ -221,6 +233,7 @@ namespace Bokningssystem
                         switch (socketOrNot)
                         {
                             case 1:
+                                // Logik för att lägga till ett nytt grupprum
                                 newRoom = new Grupprum("Grupprum", roomNumber, 10, true);
                                 Bokningssystem.AllRooms.Add(newRoom);
                                 Console.WriteLine($"Grupprum med nummer {roomNumber} har lagts till!");
@@ -250,29 +263,33 @@ namespace Bokningssystem
                 Console.WriteLine("Ogiltligt val");
             }
         }
-
+        // Listar alla rum i systemet och deras egenskaper
         public static void ListRooms()
         {
+            // Skriver ut en lista över alla salar och deras egenskaper
             Console.WriteLine("Lista över alla salar och deras egenskaper:");
             foreach (var room in Bokningssystem.AllRooms)
             {
-                Console.WriteLine($"Rumstyp: {room.RoomType}, Rumsnummer: {room.RoomNumber}, Antal stolar: {room.NumberOfChairs}, Bokad: {room.IsBooked}");
+                Console.WriteLine($"Rumstyp: {room.RoomType}, Rumsnummer: {room.RoomNumber}, Antal stolar: {room.NumberOfChairs}");
             }
 
         }
+        
         public static void SaveRoomsToFile(string filePath)
         {
+            // Sparar alla salar till en fil
             using (StreamWriter writer = new StreamWriter(filePath))
             {
                 foreach (var room in Bokningssystem.AllRooms)
                 {
-                    writer.WriteLine($"{room.RoomType},{room.RoomNumber},{room.NumberOfChairs},{room.IsBooked}");
+                    writer.WriteLine($"{room.RoomType},{room.RoomNumber},{room.NumberOfChairs}");
                 }
             }
         }
 
         public static void LoadRoomsFromFile(string filePath)
         {
+            // Laddar salar från en fil
             if (File.Exists(filePath))
             {
                 using (StreamReader reader = new StreamReader(filePath))
@@ -286,6 +303,7 @@ namespace Bokningssystem
                         int numberOfChairs = int.Parse(parts[2]);
                         bool isBooked = bool.Parse(parts[3]);
 
+                        // Skapar och lägger till rummet i listan baserat på rumstyp
                         if (roomType == "Sal")
                         {
                             Bokningssystem.AllRooms.Add(new Sal(roomType, roomNumber, numberOfChairs, isBooked));
