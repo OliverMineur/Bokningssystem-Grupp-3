@@ -265,27 +265,30 @@ namespace Bokningssystem
         // Listar alla rum i systemet och deras egenskaper
         public static void ListRooms()
         {
+            // Skriver ut en lista över alla salar och deras egenskaper
             Console.WriteLine("Lista över alla salar och deras egenskaper:");
             foreach (var room in Bokningssystem.AllRooms)
             {
-                Console.WriteLine($"Rumstyp: {room.RoomType}, Rumsnummer: {room.RoomNumber}, Antal stolar: {room.NumberOfChairs}, Bokad: {room.IsBooked}");
+                Console.WriteLine($"Rumstyp: {room.RoomType}, Rumsnummer: {room.RoomNumber}, Antal stolar: {room.NumberOfChairs}");
             }
 
         }
         
         public static void SaveRoomsToFile(string filePath)
         {
+            // Sparar alla salar till en fil
             using (StreamWriter writer = new StreamWriter(filePath))
             {
                 foreach (var room in Bokningssystem.AllRooms)
                 {
-                    writer.WriteLine($"{room.RoomType},{room.RoomNumber},{room.NumberOfChairs},{room.IsBooked}");
+                    writer.WriteLine($"{room.RoomType},{room.RoomNumber},{room.NumberOfChairs}");
                 }
             }
         }
 
         public static void LoadRoomsFromFile(string filePath)
         {
+            // Laddar salar från en fil
             if (File.Exists(filePath))
             {
                 using (StreamReader reader = new StreamReader(filePath))
@@ -299,6 +302,7 @@ namespace Bokningssystem
                         int numberOfChairs = int.Parse(parts[2]);
                         bool isBooked = bool.Parse(parts[3]);
 
+                        // Skapar och lägger till rummet i listan baserat på rumstyp
                         if (roomType == "Sal")
                         {
                             Bokningssystem.AllRooms.Add(new Sal(roomType, roomNumber, numberOfChairs, isBooked));
