@@ -131,7 +131,7 @@ namespace Bokningssystem
 
         static void Main(string[] args)
         {
-            //Lokal.LoadRoomsFromFile();
+            Lokal.LoadRoomsFromFile();
 
 
 

@@ -25,18 +25,6 @@ namespace Bokningssystem
             NumberOfChairs = numberOfChairs;
         }
 
-        public Lokal(String roomType, byte roomNumber, int numberOfChairs, bool isBooked, DateTime startTime, TimeSpan bookingDuration, string clientName, int bookingID)
-        {
-            RoomType = roomType;
-            RoomNumber = roomNumber;
-            NumberOfChairs = numberOfChairs;
-            IsBooked = isBooked;
-            BookingStartTime = startTime;
-            BookingDuration = bookingDuration;
-            ClientName = clientName;
-            BookingID = bookingID;
-        }
-
         public static void BokningsMeny()
         {
             Console.WriteLine("Välj rumstyp att boka:");
@@ -129,13 +117,14 @@ namespace Bokningssystem
             return true; // Bokning lyckades
         }
 
-        public virtual bool Book(DateTime startTime, TimeSpan duration, string clientName, int bookingID)
+        public void BookFromSavedFile(DateTime startTime, TimeSpan duration, string clientName, int bookingID, bool isBooked)
         {
             BookingStartTime = startTime;
             BookingDuration = duration;
             ClientName = clientName;
             BookingID = bookingID;
-            return true;
+            IsBooked = isBooked;
+            Bokningssystem.AllRooms.Add(this);
         }
 
         // Funktion för att avboka ett rum
@@ -285,51 +274,62 @@ namespace Bokningssystem
         }
         public static void SaveRoomsToFile()
         {
-            string fileLocation = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            using (StreamWriter writer = new StreamWriter(Path.Combine(fileLocation, "BookingsAndRooms.txt"), true))
+            using (StreamWriter writer = new StreamWriter("BookingsAndRooms.txt", append: false))
             {
                 foreach (Lokal room in Bokningssystem.AllRooms)
                 {
-                    foreach (PropertyInfo roomSpecs in typeof(Lokal).GetProperties())
+                    if (room is Sal sal)
                     {
-                        writer.WriteLine(roomSpecs.GetValue(room, null));
+                        foreach (PropertyInfo roomSpecs in typeof(Sal).GetProperties())
+                        {
+                            writer.WriteLine(roomSpecs.GetValue(room, null));
+                        }
+                    }
+                    if (room is Grupprum grupprum)
+                    {
+                        foreach (PropertyInfo roomSpecs in typeof(Grupprum).GetProperties())
+                        {
+                            writer.WriteLine(roomSpecs.GetValue(room, null));
+                        }
                     }
                     writer.WriteLine();
                 }
-
             }
         }
 
         public static void LoadRoomsFromFile()
         {
-            if (File.Exists(@"c:\BookingsAndRooms.txt"))
+            if (File.Exists("BookingsAndRooms.txt"))
             {
-                using (StreamReader reader = new StreamReader(@"c:\BookingsAndRooms.txt"))
+                using (StreamReader reader = new StreamReader("BookingsAndRooms.txt"))
                 {
-
-                    string roomType = reader.ReadLine();
-                    byte roomNumber = byte.Parse(reader.ReadLine());
-                    int numberOfChairs = int.Parse(reader.ReadLine());
-                    bool isBooked = bool.Parse(reader.ReadLine());
-                    DateTime startTime = DateTime.Parse(reader.ReadLine());
-                    TimeSpan duration = TimeSpan.Parse(reader.ReadLine());
-                    string clientName = reader.ReadLine();
-                    int bookingID = int.Parse(reader.ReadLine());
-
-                    if (roomType == "Sal")
+                    while (!reader.EndOfStream)
                     {
-                        Lokal newObject = new Sal(roomType, roomNumber, numberOfChairs, isBooked);
-                        newObject.Book(startTime, duration,clientName,bookingID);
-                    }
-                    else if (roomType == "Grupprum")
-                    {
-                        Lokal newObject = new Grupprum(roomType, roomNumber, numberOfChairs, isBooked);
-                        newObject.Book(startTime, duration, clientName, bookingID);
+                        bool socketOrProjector = bool.Parse(reader.ReadLine());
+                        string roomType = reader.ReadLine();
+                        byte roomNumber = byte.Parse(reader.ReadLine());
+                        int numberOfChairs = int.Parse(reader.ReadLine());
+                        bool isBooked = bool.Parse(reader.ReadLine());
+                        DateTime startTime = DateTime.Parse(reader.ReadLine());
+                        TimeSpan duration = TimeSpan.Parse(reader.ReadLine());
+                        string clientName = reader.ReadLine();
+                        int bookingID = int.Parse(reader.ReadLine());
+                        reader.ReadLine();
+
+                        if (roomType == "Sal")
+                        {
+                            Lokal newObject = new Sal(roomType, roomNumber, numberOfChairs, socketOrProjector);
+                            newObject.BookFromSavedFile(startTime, duration, clientName, bookingID, isBooked);
+                        }
+                        else if (roomType == "Grupprum")
+                        {
+                            Lokal newObject = new Grupprum(roomType, roomNumber, numberOfChairs, socketOrProjector);
+                            newObject.BookFromSavedFile(startTime, duration, clientName, bookingID, isBooked);
+                        }
                     }
                 }
             }
         }
     }
-
 }
 
