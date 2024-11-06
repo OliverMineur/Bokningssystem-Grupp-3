@@ -191,10 +191,11 @@ namespace Bokningssystem
                                 switch (secondMenuChoice)
                                 {
                                     case 1:
-                                        //Visa alla salar
+                                        //Visa alla salar och grupprum
+                                        Lokal.ListRooms();
                                         break;
                                     case 2:
-                                        //Skapa ny sal
+                                        //Skapa ny sal eller grupprum
                                         Lokal.AddRoom();
                                         break;
                                     default:
