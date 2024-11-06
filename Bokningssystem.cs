@@ -34,6 +34,9 @@ namespace Bokningssystem
             AllRooms.Add(new Grupprum("Grupprum", 14, 20, true));
             AllRooms.Add(new Grupprum("Grupprum",14, 20, true));
             AllRooms.Add(new Sal("Sal", 12, 40, false));
+            AllRooms.Add(new Grupprum("Grupprum", 14, 20, true));
+            AllRooms.Add(new Grupprum("Grupprum", 14, 20, true));
+            AllRooms.Add(new Sal("Sal", 12, 40, false));
 
 
             //foreach (Lokal item in AllRooms)
@@ -50,15 +53,9 @@ namespace Bokningssystem
 
             while (true)
             {
-                Console.WriteLine("Huvudmeny");
-                Console.WriteLine("1. Boka ett rum");
-                Console.WriteLine("2. Lägg till ett nytt rum");
-                Console.WriteLine("3. Avsluta");
-
-                string choice = Console.ReadLine();
 
                 Console.WriteLine("Bokningssystem:\n1:Hantera bokningar\n2:Hantera lokaler");
-                if(int.TryParse(Console.ReadLine(), out int menuChoice))
+                if (int.TryParse(Console.ReadLine(), out int menuChoice))
                 {
                     switch (menuChoice)
                     {
@@ -98,7 +95,7 @@ namespace Bokningssystem
                             break;
                         case 2:
                             Console.WriteLine("Hantera lokaler:\n1:Visa alla salar och grupprum\n2:Skapa ny sal eller grupprum");
-                            if ((int.TryParse(Console.ReadLine(),out secondMenuChoice)))
+                            if ((int.TryParse(Console.ReadLine(), out secondMenuChoice)))
                             {
                                 switch (secondMenuChoice)
                                 {
@@ -128,6 +125,7 @@ namespace Bokningssystem
                 {
                     Console.WriteLine("Ogiltig inskrift");
                 }
+
             }
         }
     }
