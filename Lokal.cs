@@ -136,20 +136,19 @@ namespace Bokningssystem
         }
         public static Lokal FindRoomByID(int bookingID)
         {
-            Bokningssystem.AllRooms.FirstOrDefault(room => room.BookingID == bookingID);
-
-            int searchID = 1234; // Sök-ID
-            Lokal room = FindRoomByID(searchID);
-            
+            // Searches for the first room in the list with a matching booking ID (JP)
+            Lokal room = Bokningssystem.AllRooms.FirstOrDefault(r => r.BookingID == bookingID);
+            // If a room with the specified booking ID is found, display its details and return it
             if (room != null)
             {
                 Console.WriteLine($"Rum hittades: {room.RoomType} med nummer {room.RoomNumber}");
                 return room;
             }
+            // If no room with the specified booking ID is found, display a message and return null
             else
             {
                 Console.WriteLine("Ingen bokning hittades med det angivna ID:t");
-                return room;
+                return null;
             }
 
         }
