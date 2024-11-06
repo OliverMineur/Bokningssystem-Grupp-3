@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Timers;
 
 namespace Bokningssystem
 {
@@ -311,15 +312,62 @@ namespace Bokningssystem
                         Console.WriteLine("1.Byta sal\n2.Ändra tid\n3.Båda");
                         if (int.TryParse(Console.ReadLine(), out int userChoice))
                         {
+                            //List<Lokal> ledigaRum = Bokningssystem.AllRooms.Where(rum => !rum.IsBooked).ToList();
                             switch (userChoice)
                             {
                                 case 1:
                                     Console.WriteLine("Lediga rum:");
                                     //Skriv ut lediga salar/grupprum här
                                     Console.WriteLine("Skriv in nummret på rummet du vill boka:");
-
+                                    if (byte.TryParse(Console.ReadLine(), out byte userRoomChoice))
+                                    {
+                                        if (Bokningssystem.AllRooms.Any(rum => rum.RoomNumber == userRoomChoice && !rum.IsBooked))
+                                        {
+                                            booking.RoomNumber = userRoomChoice;
+                                            Console.WriteLine($"Rummet ändrat till {booking.RoomType} nummer {booking.RoomNumber}");
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Rummet är inte ledigt");
+                                            break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Felaktik inmatning");
+                                    }
                                     break;
+
                                 case 2:
+                                    Console.WriteLine($"Nuvarande bokning:\nRumsnummer: {booking.RoomNumber}\n" +
+                                        $"Starttid: {booking.BookingStartTime}\n" +
+                                        $"Längd på bokning: {booking.BookingDuration}");
+
+                                    Console.WriteLine("Ange ny bokningsstarttid (ÅÅÅÅ-MM-DD:MM):");
+                                    if (DateTime.TryParse(Console.ReadLine(), out DateTime startTime))
+                                    {
+                                        booking.BookingStartTime = startTime;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Ogiltigt tid");
+                                        return;
+                                    }
+                                    Console.WriteLine("Ange varaktighet i timmar:");
+                                    if (!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan duration))
+                                    {
+                                        booking.BookingDuration = duration;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Ogiltigt varaktighet");
+                                        return;
+                                    }
+                                    Console.WriteLine("Ändring klar!");
+                                    Console.WriteLine($"Uppdaterad bokning:\nRumsnummer: {booking.RoomNumber}\n" +
+                                        $"Starttid: {booking.BookingStartTime}\n" +
+                                        $"Längd på bokning: {booking.BookingDuration}");
                                     break;
                                 case 3:
                                     break;
