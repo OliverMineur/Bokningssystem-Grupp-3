@@ -283,22 +283,23 @@ namespace Bokningssystem
             {
                 Console.WriteLine("Finns inga skapade rum.");
                 return;
+            }
+
+            // Skriver ut en lista över alla salar och deras egenskaper
+            Console.WriteLine("Lista över alla salar och deras egenskaper:");
+            foreach (var room in Bokningssystem.AllRooms)
+            {
+                if (room is Sal sal)
                 {
-                    // Skriver ut en lista över alla salar och deras egenskaper
-                    Console.WriteLine("Lista över alla salar och deras egenskaper:");
-                    foreach (var room in Bokningssystem.AllRooms)
-                    {
-                        if (room is Sal sal)
-                        {
-                            Console.WriteLine($"Rumstyp: {sal.RoomType}, Rumsnummer: {sal.RoomNumber}, Antal stolar: {sal.NumberOfChairs}, Projektor: {(sal.Projector ? "Ja" : "Nej")}");
-                        }
-                        else if (room is Grupprum grupprum)
-                        {
-                            Console.WriteLine($"Rumstyp: {grupprum.RoomType}, Rumsnummer: {grupprum.RoomNumber}, Antal stolar: {grupprum.NumberOfChairs}, Eluttag: {(grupprum.Socket ? "Ja" : "Nej")}");
-                        }
-                    }
+                    Console.WriteLine($"Rumstyp: {sal.RoomType}, Rumsnummer: {sal.RoomNumber}, Antal stolar: {sal.NumberOfChairs}, Projektor: {(sal.Projector ? "Ja" : "Nej")}");
+                }
+                else if (room is Grupprum grupprum)
+                {
+                    Console.WriteLine($"Rumstyp: {grupprum.RoomType}, Rumsnummer: {grupprum.RoomNumber}, Antal stolar: {grupprum.NumberOfChairs}, Eluttag: {(grupprum.Socket ? "Ja" : "Nej")}");
                 }
             }
+
+
         }
         public static void SaveRoomsToFile()
         {
