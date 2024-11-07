@@ -151,13 +151,13 @@ namespace Bokningssystem
             while (true)
             {
                 // Visa huvudmenyn
-                Console.WriteLine("Bokningssystem:\n1:Hantera bokningar\n2:Hantera lokaler");
+                Console.WriteLine("Bokningssystem:\n1:Hantera bokningar\n2:Hantera lokaler\n3:Spara och avsluta");
                 if (int.TryParse(Console.ReadLine(), out int menuChoice))
                 {
                     switch (menuChoice)
                     {
                         case 1: // Alternativ för att hantera bokningar
-                            Console.WriteLine("Hantera bokningar:\n1:Skapa bokning\n2:Se alla bokningar\n3:Filtrera alla bokningar\n4:Ta bort bokning\n5:Uppdatera bokning\n6:Avsluta");
+                            Console.WriteLine("Hantera bokningar:\n1:Skapa bokning\n2:Se alla bokningar\n3:Filtrera alla bokningar\n4:Ta bort bokning\n5:Uppdatera bokning");
                             if (int.TryParse(Console.ReadLine(), out int secondMenuChoice))
                             {
                                 switch (secondMenuChoice)
@@ -196,10 +196,7 @@ namespace Bokningssystem
                                     case 5:
                                         //Uppdatera bokning
                                         break;
-                                    case 6:
-                                        Lokal.SaveRoomsToFile();
-                                        Environment.Exit(0);
-                                        break;
+                                   
                                     default:
                                         Console.WriteLine("Ogiltigt val, försök igen.");
                                         break;
@@ -233,6 +230,10 @@ namespace Bokningssystem
                             {
                                 Console.WriteLine("Ogiltig inskrift");
                             }
+                            break;
+                            case 3:
+                            Lokal.SaveRoomsToFile();
+                            Environment.Exit(0);
                             break;
                         default:
                             Console.WriteLine("Ogiltigt val, försök igen.");
