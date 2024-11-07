@@ -330,7 +330,7 @@ namespace Bokningssystem
                     if (booking.BookingID == userSearchId)
                     {
                         Console.WriteLine("Vad vill du göra?");
-                        Console.WriteLine("1.Byta sal\n2.Ändra tid\n3.Båda");
+                        Console.WriteLine("1.Byta sal\n2.Ändra tid");
                         if (int.TryParse(Console.ReadLine(), out int userChoice))
                         {
                             switch (userChoice)
@@ -376,15 +376,21 @@ namespace Bokningssystem
                                     return;
                                 default:
                                     Console.WriteLine("Ogiltigt menyval");
-                                    break;
+                                    return;
                             }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Ogiltligt menyval");
+                            return;
                         }
                     }
                 }
+                Console.WriteLine("Bokning hittades inte");
             }
             else
             {
-                Console.WriteLine("Ogiltlig inmatning");
+                Console.WriteLine("Ogiltlig inmatning av boknings ID");
             }
         }
     }
