@@ -35,6 +35,7 @@ internal class Sal : Lokal
         BookingID = GenerateBookingID();
         // Bekräfta bokningen till användaren
         Console.WriteLine($"Salen är bokad av {clientName} från {startTid} i {duration.TotalHours} timmar.");
+        Console.WriteLine($"Bokning lyckades! Boknings-ID: {BookingID}");
         return true;
     }
     // Avbokar salen om den är bokad

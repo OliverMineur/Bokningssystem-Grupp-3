@@ -48,6 +48,7 @@ namespace Bokningssystem
 
             // Bekräfta bokningen till användaren
             Console.WriteLine($"Grupprummet är bokat av {bokadAv} från {startTid} i {duration.TotalHours} timmar.");
+            Console.WriteLine($"Bokning lyckades! Boknings-ID: {BookingID}");
             return true;
         }
         // Avbokar grupprummet om det är bokat
