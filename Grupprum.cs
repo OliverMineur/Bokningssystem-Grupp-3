@@ -6,17 +6,17 @@ namespace Bokningssystem
     internal class Grupprum : Lokal
     {
         // Indikerar om grupprummet har en projektor
-        public bool Projector { get; set; }
+        public bool Socket { get; set; }
 
         // Konstruktor för att skapa ett Grupprum med specifik typ, rumsnummer, antal stolar och projektortillgänglighet
         // "roomType"> Typ av rum (t.ex. grupprum)
         // "roomNumber">Rummets nummer
         // "numberOfChairs">Antal stolar i grupprummet
         // "projector">Anger om grupprummet har en projektor
-        public Grupprum(string roomType, byte roomNumber, int numberOfChairs, bool projector)
+        public Grupprum(string roomType, byte roomNumber, int numberOfChairs, bool socket)
             : base(roomType, roomNumber, numberOfChairs)
         {
-            Projector = projector;
+            Socket = socket;
         }
         // Bokar grupprummet för en specifik klient under en given tidsperiod
         // "startTid">Starttid för bokningen
