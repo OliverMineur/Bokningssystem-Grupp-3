@@ -3,12 +3,12 @@ using System;
 
 internal class Sal : Lokal
 {
-    public bool Socket { get; set; }
+    public bool Projector { get; set; }
 
-    public Sal(string roomType, byte roomNumber, int numberOfChairs, bool socket)
+    public Sal(string roomType, byte roomNumber, int numberOfChairs, bool projector)
         : base(roomType, roomNumber, numberOfChairs)
     {
-        Socket = socket;
+        Projector = projector;
     }
 
     public override bool Book(DateTime startTid, TimeSpan duration, string clientName)
