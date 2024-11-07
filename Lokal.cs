@@ -27,7 +27,7 @@ namespace Bokningssystem
         }
 
         // Visar en meny för att boka ett rum (JP)
-        public static void BokningsMeny()
+        public static bool BokningsMeny()
         {
             Console.WriteLine("Välj rumstyp att boka:");
             Console.WriteLine("1. Sal");
