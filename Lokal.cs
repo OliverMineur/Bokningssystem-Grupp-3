@@ -45,10 +45,7 @@ namespace Bokningssystem
             Console.WriteLine("Välj rum nummer att boka");
             foreach (var rum in ledigaRum)
             {
-                foreach (Sal sal in ledigaRum)
-                {
-                    
-                }
+                Console.WriteLine($"Sal nummer: {rum.RoomNumber}, Platser: {rum.NumberOfChairs}");
 
             }
             byte roomNumber;
