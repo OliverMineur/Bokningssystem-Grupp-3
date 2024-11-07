@@ -9,12 +9,6 @@ namespace Bokningssystem
         // Lista över alla lokaler i systemet
         public static List<Lokal> AllRooms = new List<Lokal>();
 
-        // Konstruktor för Bokningssystem-klassen
-        public Bokningssystem()
-        {
-
-        }
-
         //public Lokal GetBookingWithId(int ID)
         //{
         //    return AllRooms.FirstOrDefault(b => b.ID == ID);
