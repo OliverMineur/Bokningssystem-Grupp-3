@@ -132,6 +132,7 @@ namespace Bokningssystem
         // Huvudmetoden som startar programmet och visar menyalternativ för användaren
         static void Main(string[] args)
         {
+            Lokal.LoadRoomsFromFile();
 
 
 
@@ -171,13 +172,32 @@ namespace Bokningssystem
                                     case 3: // Filtrera alla bokningar
                                         FilterBookings();
                                         break;
-                                    case 4:
-                                        //Ta bort alla bokningar
+                                    case 4: // Avboka en bokning (JP)
+                                        Console.WriteLine("Ange boknings-ID för att avboka:");
+                                        if (int.TryParse(Console.ReadLine(), out int bookingID))
+                                        {
+                                            Lokal roomToCancel = Lokal.FindRoomByID(bookingID);
+                                            if (roomToCancel != null)
+                                            {
+                                                roomToCancel.UnBook();
+                                                Console.WriteLine("Bokningen har avbokats.");
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Ingen bokning hittades med angivet ID.");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Ogiltigt boknings-ID.");
+                                        }
                                         break;
+
                                     case 5:
                                         //Uppdatera bokning
                                         break;
-                                    case 6: // Avsluta programmet
+                                    case 6:
+                                        Lokal.SaveRoomsToFile();
                                         Environment.Exit(0);
                                         break;
                                     default:
