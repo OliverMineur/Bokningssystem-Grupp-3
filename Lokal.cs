@@ -136,16 +136,6 @@ namespace Bokningssystem
             return true; // Bokning lyckades
         }
 
-        public void BookFromSavedFile(DateTime startTime, TimeSpan duration, string clientName, int bookingID, bool isBooked)
-        {
-            BookingStartTime = startTime;
-            BookingDuration = duration;
-            ClientName = clientName;
-            BookingID = bookingID;
-            IsBooked = isBooked;
-            Bokningssystem.AllRooms.Add(this);
-        }
-
         // Funktion för att avboka ett rum
         // Funktion för att avboka ett rum (JP)
         public void UnBook()
