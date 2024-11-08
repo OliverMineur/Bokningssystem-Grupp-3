@@ -311,7 +311,6 @@ namespace Bokningssystem
             List<Grupprum> grupprums = Bokningssystem.AllRooms.Where(x => x.RoomType == "Grupprum").Cast<Grupprum>().ToList();
             File.WriteAllText("Sal.Json", JsonSerializer.Serialize(sals));
             File.WriteAllText("Grupprum.Json", JsonSerializer.Serialize(grupprums));
-
         }
         public static void LoadRoomsFromFile()
         {
