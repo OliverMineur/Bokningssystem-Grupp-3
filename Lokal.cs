@@ -158,7 +158,7 @@ namespace Bokningssystem
 
             return newBookingID;
         }
-        // Hittar ett rum baserat på ett boknings-ID
+        // Hittar ett rum baserat på ett boknings-ID (JP)
         public static Lokal FindRoomByID(int bookingID)
         {
             // Söker efter det första rummet i listan med ett matchande boknings-ID (JP)
@@ -178,7 +178,8 @@ namespace Bokningssystem
 
         }
 
-        // Lägger till ett nytt rum i systemet
+        // Lägger till ett nytt rum i systemet (Cecilia)
+        // + Oliver
         public static void AddRoom()
         {
             Console.WriteLine("Vad vill du lägga till?");
@@ -188,8 +189,10 @@ namespace Bokningssystem
             {
                 Console.WriteLine("Ange önskat nummer på salen");
                 if (byte.TryParse(Console.ReadLine(), out byte roomNumber) && roomNumber > 0)
+                //Om parse lyckas, skickar tillbaka roomNumber
                 {
                     if (Bokningssystem.AllRooms.Any(x => x.RoomNumber == roomNumber))
+                    //Kontrollerar om angivna rumsnummret redan finns i listan
                     {
                         Console.WriteLine("Rumsnumret finns redan.");
                         return;
@@ -276,7 +279,8 @@ namespace Bokningssystem
             }
         }
         // Listar alla rum i systemet och deras egenskaper
-        public static void ListRooms()
+        public static void ListRooms() //(Emilia)
+            // + Cecilia
         {
             if (Bokningssystem.AllRooms.Count == 0)
             {
@@ -325,6 +329,7 @@ namespace Bokningssystem
             if (int.TryParse(Console.ReadLine(), out int userSearchId))
             {
                 List<Lokal> allRoomsCopy = Bokningssystem.AllRooms.ToList();
+                //Kopia av AllRooms för att i foreach loop lokalisera korrekt bookning och ta bort ur oginal listan
                 foreach (Lokal booking in allRoomsCopy)
                 {
                     if (booking.BookingID == userSearchId)
@@ -337,13 +342,15 @@ namespace Bokningssystem
                             {
                                 case 1:
                                     if (BokningsMeny())
+                                    //Om vi får tillbaka true från BokningsMeny, en ny bokning har skapats
                                     {
                                         Bokningssystem.AllRooms.Remove(booking);
+                                        //Tar bort aktuell bokning ur AllRooms
                                         return;
                                     }
                                     break;
 
-                                case 2:
+                                case 2: //Ändra tid
                                     Console.WriteLine($"Nuvarande bokning:\nRumsnummer: {booking.RoomNumber}\n" +
                                         $"Starttid: {booking.BookingStartTime}\n" +
                                         $"Längd på bokning: {booking.BookingDuration}");
@@ -352,6 +359,7 @@ namespace Bokningssystem
                                     if (DateTime.TryParse(Console.ReadLine(), out DateTime startTime))
                                     {
                                         booking.BookingStartTime = startTime;
+                                        //Väljer ny starttid 
                                     }
                                     else
                                     {
@@ -362,7 +370,9 @@ namespace Bokningssystem
                                     if (int.TryParse(Console.ReadLine(), out int durationHours))
                                     {
                                         TimeSpan duration = new TimeSpan(durationHours, 0, 0);
+                                        //Skapar en ny timespan med användarens val av timmar
                                         booking.BookingDuration = duration;
+                                        //Väljer ny varaktighet
                                     }
                                     else
                                     {
