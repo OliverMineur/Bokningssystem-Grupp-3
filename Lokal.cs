@@ -11,15 +11,14 @@ namespace Bokningssystem
     {
 
         public string RoomType { get; set; } // "Sal" eller "Grupprum"
-        public byte RoomNumber { get; set; } // Unikt nummer för varje rum
-        public int NumberOfChairs { get; set; } // Antal stolar i rummet
+        public byte RoomNumber { get; set; }
+        public int NumberOfChairs { get; set; }
         public bool IsBooked { get; protected set; }  // Anger om rummet är bokat eller ej
-        public DateTime BookingStartTime { get; protected set; } // Starttid för bokningen
-        public TimeSpan BookingDuration { get; protected set; } // Varaktigheten för bokningen
-        public string ClientName { get; protected set; } = ""; // Namnet på klienten som bokade rummet
-        public int BookingID { get; protected set; } // Unikt boknings-ID
+        public DateTime BookingStartTime { get; protected set; }
+        public TimeSpan BookingDuration { get; protected set; }
+        public string ClientName { get; protected set; } = ""; 
+        public int BookingID { get; protected set; } 
 
-        // Funktion för att boka ett rum
         public Lokal(String roomType, byte roomNumber, int numberOfChairs)
         {
             RoomType = roomType;
@@ -28,6 +27,7 @@ namespace Bokningssystem
         }
 
         // Visar en meny för att boka ett rum (JP)
+        // + Emilia + Cecilia + Oliver
         public static bool BokningsMeny()
         {
             Console.WriteLine("Välj rumstyp att boka:");
@@ -60,6 +60,7 @@ namespace Bokningssystem
                 return false;
             }
             if (!ledigaRum.Any(x => x.RoomNumber == roomNumber))
+            //Om angivet rumsnummer inte finns i listan 
             {
                 Console.WriteLine("Nummret du skrev in hittades inte");
                 return false;
@@ -107,7 +108,7 @@ namespace Bokningssystem
             }
         }
 
-        // Implementerar metoden Boka från IBookable
+        // Implementerar metoden Boka från IBookable (Emilia)
         public virtual bool Book(DateTime startTime, TimeSpan duration, string clientName)
         {
             if (IsBooked)
@@ -136,8 +137,8 @@ namespace Bokningssystem
             return true; // Bokning lyckades
         }
 
-        // Funktion för att avboka ett rum
-        // Funktion för att avboka ett rum (JP)
+        // Funktion för att avboka ett rum (Emilia)
+        // + JP
         public void UnBook()
         {
             IsBooked = false; // Återställ bokningsstatus
@@ -175,7 +176,6 @@ namespace Bokningssystem
                 Console.WriteLine("Ingen bokning hittades med det angivna ID:t");
                 return null;
             }
-
         }
 
         // Lägger till ett nytt rum i systemet (Cecilia)
@@ -301,9 +301,8 @@ namespace Bokningssystem
                     Console.WriteLine($"Rumstyp: {grupprum.RoomType}, Rumsnummer: {grupprum.RoomNumber}, Antal stolar: {grupprum.NumberOfChairs}, Eluttag: {(grupprum.Socket ? "Ja" : "Nej")}");
                 }
             }
-
-
         }
+        //Sparar data från AllRooms lokalt på hårdisken (Oliver)
         public static void SaveRoomsToFile()
         {
             List<Sal> sals = Bokningssystem.AllRooms.Where(x => x.RoomType == "Sal").Cast<Sal>().ToList();
@@ -312,6 +311,7 @@ namespace Bokningssystem
             File.WriteAllText("Grupprum.Json", JsonSerializer.Serialize(grupprums));
 
         }
+        //Hämtar sparad data från hårddisken (Oliver)
         public static void LoadRoomsFromFile()
         {
             if (File.Exists("Sal.Json") && File.Exists("Grupprum.Json"))
@@ -320,8 +320,8 @@ namespace Bokningssystem
                 Bokningssystem.AllRooms.AddRange(JsonSerializer.Deserialize<List<Grupprum>>(File.ReadAllText("Grupprum.Json")));
             }
         }
-
-    public static void UpdateRoom()
+        //Metod för att uppdatera rum (Cecilia)
+        public static void UpdateRoom()
         {
             Console.WriteLine("Ange boknings ID:");
 
