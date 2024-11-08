@@ -72,18 +72,26 @@ namespace Bokningssystem
                         break;
                     case (4, 1): // Filtrera bokningar efter ett specifikt år
                         Console.WriteLine("Vilket år vill du söka på:\nFormat exempel \"1998\"");
-                        int searchForyear = int.Parse(Console.ReadLine());
-                        foreach (Lokal room in AllRooms)
+                        if(int.TryParse(Console.ReadLine(), out int searchForYear))
                         {
-                            if (searchForyear == room.BookingStartTime.Year)
+                            foreach (Lokal room in AllRooms)
                             {
-                                Console.WriteLine("" + room.RoomNumber + " is booked by " +
-                                                        room.ClientName + " from " +
-                                                        room.BookingStartTime.ToString("M") + " " +
-                                                        room.BookingStartTime.ToString("HH:mm") + " to " +
-                                                        (room.BookingStartTime + room.BookingDuration).ToString("HH:mm"));
+                                if (searchForYear == room.BookingStartTime.Year)
+                                {
+                                    Console.WriteLine("" + room.RoomNumber + " bokad av " +
+                                                            room.ClientName + " från " +
+                                                            room.BookingStartTime.ToString("M") + " " +
+                                                            room.BookingStartTime.ToString("HH:mm") + " till " +
+                                                            (room.BookingStartTime + room.BookingDuration).ToString("HH:mm"));
+                                }
                             }
                         }
+                        else
+                        {
+                            Console.WriteLine("Ogiltig inmatning.");
+                        }
+                        //int searchForyear = int.Parse(Console.ReadLine());
+
                         break;
                     default: // Felaktigt val
                         Console.WriteLine("Inget av alternativen valdes.");
@@ -103,10 +111,10 @@ namespace Bokningssystem
                     {
                         if (room.IsBooked == true)
                         {
-                            Console.WriteLine("" + room.RoomNumber + " is booked by " +
-                                                room.ClientName + " from " +
+                            Console.WriteLine("" + room.RoomNumber + " bokad av " +
+                                                room.ClientName + " från " +
                                                 room.BookingStartTime.ToString("M") + " " +
-                                                room.BookingStartTime.ToString("HH:mm") + " to " +
+                                                room.BookingStartTime.ToString("HH:mm") + " till " +
                                                 (room.BookingStartTime + room.BookingDuration).ToString("HH:mm"));
                         }
                     }

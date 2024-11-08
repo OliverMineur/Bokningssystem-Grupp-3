@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json;
 
 namespace Bokningssystem
 {
@@ -311,64 +312,22 @@ namespace Bokningssystem
         }
         public static void SaveRoomsToFile()
         {
-            using (StreamWriter writer = new StreamWriter("BookingsAndRooms.txt", append: false))
-            {
-                foreach (Lokal room in Bokningssystem.AllRooms)
-                {
-                    if (room is Sal sal)
-                    {
-                        foreach (PropertyInfo roomSpecs in typeof(Sal).GetProperties())
-                        {
-                            writer.WriteLine(roomSpecs.GetValue(room, null));
-                        }
-                    }
-                    if (room is Grupprum grupprum)
-                    {
-                        foreach (PropertyInfo roomSpecs in typeof(Grupprum).GetProperties())
-                        {
-                            writer.WriteLine(roomSpecs.GetValue(room, null));
-                        }
-                    }
-                    writer.WriteLine();
-                }
-            }
-        }
+            List<Sal> sals = Bokningssystem.AllRooms.Where(x => x.RoomType == "Sal").Cast<Sal>().ToList();
+            List<Grupprum> grupprums = Bokningssystem.AllRooms.Where(x => x.RoomType == "Grupprum").Cast<Grupprum>().ToList();
+            File.WriteAllText("Sal.Json", JsonSerializer.Serialize(sals));
+            File.WriteAllText("Grupprum.Json", JsonSerializer.Serialize(grupprums));
 
+        }
         public static void LoadRoomsFromFile()
         {
-            if (File.Exists("BookingsAndRooms.txt"))
+            if (File.Exists("Sal.Json") && File.Exists("Grupprum.Json"))
             {
-                using (StreamReader reader = new StreamReader("BookingsAndRooms.txt"))
-                {
-                    while (!reader.EndOfStream)
-                    {
-                        bool socketOrProjector = bool.Parse(reader.ReadLine());
-                        string roomType = reader.ReadLine();
-                        byte roomNumber = byte.Parse(reader.ReadLine());
-                        int numberOfChairs = int.Parse(reader.ReadLine());
-                        bool isBooked = bool.Parse(reader.ReadLine());
-                        DateTime startTime = DateTime.Parse(reader.ReadLine());
-                        TimeSpan duration = TimeSpan.Parse(reader.ReadLine());
-                        string clientName = reader.ReadLine();
-                        int bookingID = int.Parse(reader.ReadLine());
-                        reader.ReadLine();
-
-                        // Skapar och lägger till rummet i listan baserat på rumstyp
-                        if (roomType == "Sal")
-                        {
-                            Lokal newObject = new Sal(roomType, roomNumber, numberOfChairs, socketOrProjector);
-                            newObject.BookFromSavedFile(startTime, duration, clientName, bookingID, isBooked);
-                        }
-                        else if (roomType == "Grupprum")
-                        {
-                            Lokal newObject = new Grupprum(roomType, roomNumber, numberOfChairs, socketOrProjector);
-                            newObject.BookFromSavedFile(startTime, duration, clientName, bookingID, isBooked);
-                        }
-                    }
-                }
+                Bokningssystem.AllRooms.AddRange(JsonSerializer.Deserialize<List<Sal>>(File.ReadAllText("Sal.Json")));
+                Bokningssystem.AllRooms.AddRange(JsonSerializer.Deserialize<List<Grupprum>>(File.ReadAllText("Grupprum.Json")));
             }
         }
-        public static void UpdateRoom()
+
+    public static void UpdateRoom()
         {
             Console.WriteLine("Ange boknings ID:");
 
