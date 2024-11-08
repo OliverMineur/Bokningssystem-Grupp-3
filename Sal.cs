@@ -39,17 +39,4 @@ internal class Sal : Lokal
         Console.WriteLine($"Bokning lyckades! Boknings-ID: {BookingID}");
         return true;
     }
-    // Avbokar salen om den är bokad
-    public void UnBook()
-    {
-        // Kontrollera om salen inte är bokad
-        if (!IsBooked)
-        {
-            Console.WriteLine("Salen är inte bokad och kan därför inte avbokas.");
-            return;
-        }
-        // Avboka salen
-        IsBooked = false;
-        Console.WriteLine("Salen har avbokats.");
-    }
 }

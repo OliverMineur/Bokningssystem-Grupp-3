@@ -15,6 +15,5 @@ namespace Bokningssystem
         // Returnerar ett booleskt värde som indikerar om bokningen lyckades
         bool Book(DateTime startTime, TimeSpan duration, string clientName);
         // Metod för att avboka eller avboka rumsbokningen
-        void UnBook();
     }
 }

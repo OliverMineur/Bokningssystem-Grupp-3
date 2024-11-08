@@ -292,13 +292,16 @@ namespace Bokningssystem
             Console.WriteLine("Lista över alla salar och deras egenskaper:");
             foreach (var room in Bokningssystem.AllRooms)
             {
-                if (room is Sal sal)
+                if (!room.IsBooked)
                 {
-                    Console.WriteLine($"Rumstyp: {sal.RoomType}, Rumsnummer: {sal.RoomNumber}, Antal stolar: {sal.NumberOfChairs}, Projektor: {(sal.Projector ? "Ja" : "Nej")}");
-                }
-                else if (room is Grupprum grupprum)
-                {
-                    Console.WriteLine($"Rumstyp: {grupprum.RoomType}, Rumsnummer: {grupprum.RoomNumber}, Antal stolar: {grupprum.NumberOfChairs}, Eluttag: {(grupprum.Socket ? "Ja" : "Nej")}");
+                    if (room is Sal sal)
+                    {
+                        Console.WriteLine($"Rumstyp: {sal.RoomType}, Rumsnummer: {sal.RoomNumber}, Antal stolar: {sal.NumberOfChairs}, Projektor: {(sal.Projector ? "Ja" : "Nej")}");
+                    }
+                    else if (room is Grupprum grupprum)
+                    {
+                        Console.WriteLine($"Rumstyp: {grupprum.RoomType}, Rumsnummer: {grupprum.RoomNumber}, Antal stolar: {grupprum.NumberOfChairs}, Eluttag: {(grupprum.Socket ? "Ja" : "Nej")}");
+                    }
                 }
             }
         }
@@ -309,7 +312,6 @@ namespace Bokningssystem
             List<Grupprum> grupprums = Bokningssystem.AllRooms.Where(x => x.RoomType == "Grupprum").Cast<Grupprum>().ToList();
             File.WriteAllText("Sal.Json", JsonSerializer.Serialize(sals));
             File.WriteAllText("Grupprum.Json", JsonSerializer.Serialize(grupprums));
-
         }
         //Hämtar sparad data från hårddisken (Oliver)
         public static void LoadRoomsFromFile()

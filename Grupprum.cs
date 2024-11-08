@@ -51,18 +51,5 @@ namespace Bokningssystem
             Console.WriteLine($"Bokning lyckades! Boknings-ID: {BookingID}");
             return true;
         }
-        // Avbokar grupprummet om det är bokat
-        public void UnBook()
-        {
-            // Kontrollera om grupprummet inte är bokat
-            if (!IsBooked)
-            {
-                Console.WriteLine("Grupprummet är inte bokat och kan därför inte avbokas.");
-                return;
-            }
-            // Avboka grupprummet
-            IsBooked = false;
-            Console.WriteLine("Grupprummet har avbokats.");
-        }
     }
 }
