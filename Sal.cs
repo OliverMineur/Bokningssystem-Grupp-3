@@ -11,6 +11,7 @@ internal class Sal : Lokal
         Projector = projector;
     }
 
+    //Override av book metoden från lokal (Emilia)
     public override bool Book(DateTime startTid, TimeSpan duration, string clientName)
     {
         // Kontrollera om salen redan är bokad

@@ -8,7 +8,7 @@ using System;
 
 namespace Bokningssystem
 {
-    // Interface för bokningsbara objekt (ET)
+    // Interface för bokningsbara objekt (Emilia)
     internal interface IBookable
     {
         // Metod för att boka ett rum. Tar starttid, varaktighet och klientnamn som parametrar

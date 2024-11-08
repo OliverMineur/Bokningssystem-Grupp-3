@@ -9,22 +9,7 @@ namespace Bokningssystem
         // Lista över alla lokaler i systemet
         public static List<Lokal> AllRooms = new List<Lokal>();
 
-        //public Lokal GetBookingWithId(int ID)
-        //{
-        //    return AllRooms.FirstOrDefault(b => b.ID == ID);
-        //}
-
-        //public bool RemoveBookingWithId(int id)
-        //{
-        //    var bokning = GetBookingWithId(id);
-        //    if (bokning != null)
-        //    {
-        //        return AllRooms.Remove(bokning);
-        //    }
-        //    return false;
-        //}
-
-        // Metod som visar alla bokningar, med möjlighet att sortera och filtrera baserat på input
+        // Metod som visar alla bokningar, med möjlighet att sortera och filtrera baserat på input (Oliver)
         public static void ShowAllBookings(int whatToSort, int ascendingOrDecending)
         {
             List<Lokal> orderedList = null; // Lista för sorterade lokaler
@@ -90,7 +75,6 @@ namespace Bokningssystem
                         {
                             Console.WriteLine("Ogiltig inmatning.");
                         }
-                        //int searchForyear = int.Parse(Console.ReadLine());
 
                         break;
                     default: // Felaktigt val
@@ -121,7 +105,7 @@ namespace Bokningssystem
                 }
             }
         }
-        // Metod för att filtrera bokningar baserat på användarens val
+        // Metod för att filtrera bokningar baserat på användarens val (Oliver)
         public static void FilterBookings()
         {
             try
@@ -141,20 +125,6 @@ namespace Bokningssystem
         static void Main(string[] args)
         {
             Lokal.LoadRoomsFromFile();
-
-
-
-            //foreach (Lokal item in AllRooms)
-            //{
-            //    if(item is Sal a)
-            //    {
-            //        Console.WriteLine(a.RoomType + a.Socket + a.NumberOfChairs);
-            //    }
-            //    else if (item is Grupprum b)
-            //    {
-            //        Console.WriteLine(b.RoomType + b.RoomNumber);
-            //    }
-            //}
 
             while (true)
             {
