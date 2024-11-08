@@ -35,8 +35,12 @@ namespace Bokningssystem
             string roomTypeChoice = Console.ReadLine();
 
             // Hämta en lista över lediga rum av vald typ
-            List<Lokal> ledigaRum = Bokningssystem.AllRooms.Where(rum => rum.RoomType == (roomTypeChoice == "1" ? "Sal" : "Grupprum") && !rum.IsBooked).ToList();
-
+            List<Lokal> ledigaRum = Bokningssystem.AllRooms.Where(rum => rum.RoomType == (roomTypeChoice == "1" ? "Sal" : "Fel") || rum.RoomType == (roomTypeChoice == "2" ? "Grupprum" : "Fel") && !rum.IsBooked).ToList();
+            if (roomTypeChoice != "1" && roomTypeChoice != "2")
+            {
+                Console.WriteLine("Felaktig inmatning");
+                return false;
+            }
             if (!ledigaRum.Any())
             {
                 Console.WriteLine("Inga lediga rum av denna typ.");
@@ -48,11 +52,15 @@ namespace Bokningssystem
                 Console.WriteLine($"{rum.RoomType} nummer: {rum.RoomNumber}, Platser: {rum.NumberOfChairs}");
 
             }
-            byte roomNumber;
             // Läsa in rumsnumret för bokning
-            if (!byte.TryParse(Console.ReadLine(), out roomNumber))
+            if (!byte.TryParse(Console.ReadLine(), out byte roomNumber))
             {
                 Console.WriteLine("Ogiltigt inmatning");
+                return false;
+            }
+            if (!ledigaRum.Any(x => x.RoomNumber == roomNumber))
+            {
+                Console.WriteLine("Nummret du skrev in hittades inte");
                 return false;
             }
             // Klonar valt rum för att boka det
