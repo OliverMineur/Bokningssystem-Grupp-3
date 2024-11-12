@@ -18,8 +18,6 @@
 
 ○ Val och motiveringar för implementation
 
-  Vi har implementerat IBookable, Sal, Grupprum och Lokal i bokningssystemet för att få ett fungerande program
-
   Val av Interface (IBookable)
   Motivering: Genom att använda ett interface kan vi säkerställa att alla bokningsbara objekt har gemensamma metoder och egenskaper. 
   Detta gör koden mer flexibel och lättare att underhålla eftersom vi kan lägga till nya typer av bokningsbara objekt utan att ändra befintlig kod.
