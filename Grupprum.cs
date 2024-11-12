@@ -25,6 +25,7 @@ namespace Bokningssystem
         // Returnerar true om bokningen lyckades, annars false
         public override bool Book(DateTime startTid, TimeSpan duration, string bokadAv)
         {
+            Console.Clear();
             // Kontrollera om grupprummet redan är bokat
             if (IsBooked)
             {

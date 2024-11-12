@@ -14,9 +14,11 @@ internal class Sal : Lokal
     //Override av book metoden från lokal (Emilia)
     public override bool Book(DateTime startTid, TimeSpan duration, string clientName)
     {
+        Console.Clear();
         // Kontrollera om salen redan är bokad
         if (IsBooked)
         {
+            
             Console.WriteLine("Salen är redan bokad.");
             return false;
         }

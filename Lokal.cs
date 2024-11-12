@@ -30,11 +30,12 @@ namespace Bokningssystem
         // + Emilia + Cecilia + Oliver
         public static bool BokningsMeny()
         {
+            Console.Clear();
             Console.WriteLine("Välj rumstyp att boka:");
             Console.WriteLine("1. Sal");
             Console.WriteLine("2. Grupprum");
             string roomTypeChoice = Console.ReadLine();
-
+            Console.Clear();
             // Hämta en lista över lediga rum av vald typ
             List<Lokal> ledigaRum = Bokningssystem.AllRooms.Where(rum => rum.RoomType == (roomTypeChoice == "1" ? "Sal" : "Fel") || rum.RoomType == (roomTypeChoice == "2" ? "Grupprum" : "Fel") && !rum.IsBooked).ToList();
             if (roomTypeChoice != "1" && roomTypeChoice != "2")
@@ -59,6 +60,7 @@ namespace Bokningssystem
                 Console.WriteLine("Ogiltigt inmatning");
                 return false;
             }
+            Console.Clear();
             if (!ledigaRum.Any(x => x.RoomNumber == roomNumber))
             //Om angivet rumsnummer inte finns i listan 
             {
@@ -72,10 +74,12 @@ namespace Bokningssystem
                 Console.WriteLine("Rum inte hittat.");
                 return false;
             }
+            Console.Clear();
             // Få klientnamn för bokningen
             Console.WriteLine("Ange kundens namn:");
             string clientNamn = Console.ReadLine();
 
+            Console.Clear();
             // Ange starttid för bokningen
             Console.WriteLine("Ange bokningsstarttid (ÅÅÅÅ-MM-DD HH:MM)");
             DateTime startTime;
@@ -84,6 +88,7 @@ namespace Bokningssystem
                 Console.WriteLine("Ogiltigt tid");
                 return false;
             }
+            Console.Clear();
             // Ange varaktighet för bokningen
             Console.WriteLine("Ange varaktighet i timmar:");
             int durationHours;
@@ -98,6 +103,7 @@ namespace Bokningssystem
             if (valtRum.Book(startTime, duration, clientNamn))
             {
                 Bokningssystem.AllRooms.Add(valtRum);
+                Console.Clear();
                 Console.WriteLine("Bokningen är genomförd");
                 return true;
             }
@@ -143,6 +149,7 @@ namespace Bokningssystem
         {
             IsBooked = false; // Återställ bokningsstatus
             Bokningssystem.AllRooms.Remove(this); // Ta bort från listan med bokade rum
+            Console.Clear();
             Console.WriteLine("Rummet har avbokats.");
         }
 
@@ -162,6 +169,7 @@ namespace Bokningssystem
         // Hittar ett rum baserat på ett boknings-ID (JP)
         public static Lokal FindRoomByID(int bookingID)
         {
+            Console.Clear();
             // Söker efter det första rummet i listan med ett matchande boknings-ID (JP)
             Lokal room = Bokningssystem.AllRooms.FirstOrDefault(r => r.BookingID == bookingID);
             // Om ett rum med angivet boknings-ID hittas, visa dess uppgifter och returnera det
@@ -182,26 +190,30 @@ namespace Bokningssystem
         // + Oliver
         public static void AddRoom()
         {
+            Console.Clear();
             Console.WriteLine("Vad vill du lägga till?");
             Console.WriteLine("1. Sal\n2. Grupprum");
             string? selection = Console.ReadLine();
+            Console.Clear();
             if (selection == "1")
             {
                 Console.WriteLine("Ange önskat nummer på salen");
                 if (byte.TryParse(Console.ReadLine(), out byte roomNumber) && roomNumber > 0)
                 //Om parse lyckas, skickar tillbaka roomNumber
                 {
+                    Console.Clear();
                     if (Bokningssystem.AllRooms.Any(x => x.RoomNumber == roomNumber))
                     //Kontrollerar om angivna rumsnummret redan finns i listan
                     {
                         Console.WriteLine("Rumsnumret finns redan.");
                         return;
                     }
-
+                    Console.Clear();
                     Console.WriteLine("Finns det en projektor i salen? \n1: Ja\n2: Nej");
                     if (int.TryParse(Console.ReadLine(), out int projectorOrNot))
                     {
                         Sal newSal;
+                        Console.Clear();
                         switch (projectorOrNot)
                         {
                             case 1:
@@ -232,6 +244,7 @@ namespace Bokningssystem
             }
             else if (selection == "2")
             {
+                Console.Clear();
                 Console.WriteLine("Ange önskat nummer på grupprummet");
                 if (byte.TryParse(Console.ReadLine(), out byte roomNumber) && roomNumber > 0)
                 {
@@ -240,10 +253,11 @@ namespace Bokningssystem
                         Console.WriteLine("Rumsnumret finns redan.");
                         return;
                     }
-
+                    Console.Clear();
                     Console.WriteLine("Finns det eluttag i rummet? \n1: Ja\n2: Nej");
                     if (int.TryParse(Console.ReadLine(), out int socketOrNot))
                     {
+                        Console.Clear();
                         Grupprum newRoom;
                         switch (socketOrNot)
                         {
@@ -282,6 +296,7 @@ namespace Bokningssystem
         public static void ListRooms() //(Emilia)
             // + Cecilia
         {
+            Console.Clear();
             if (Bokningssystem.AllRooms.Count == 0)
             {
                 Console.WriteLine("Finns inga skapade rum.");

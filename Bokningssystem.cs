@@ -16,6 +16,7 @@ namespace Bokningssystem
             bool roomsBooked = false; // Indikerar om några rum är bokade
             try
             {
+                Console.Clear();
                 // Välj sorteringsmetod och ordning baserat på argumenten whatToSort och ascendingOrDecending
                 switch ((whatToSort, ascendingOrDecending))
                 {
@@ -56,6 +57,7 @@ namespace Bokningssystem
                         orderedList = AllRooms.OrderByDescending(x => x.RoomNumber).ToList(); // Sortera efter rumsnummer i fallande ordning
                         break;
                     case (4, 1): // Filtrera bokningar efter ett specifikt år
+                        Console.Clear();
                         Console.WriteLine("Vilket år vill du söka på:\nFormat exempel \"1998\"");
                         if(int.TryParse(Console.ReadLine(), out int searchForYear))
                         {
@@ -110,8 +112,10 @@ namespace Bokningssystem
         {
             try
             {
+                Console.Clear();
                 Console.WriteLine("Hur vill du filtrera listan?\n1:Sortera efter rumstyp\n2:Sortera efter datum\n3:Sortera efter rum nummer\n4:Visa bokningar på specifika år");
                 int firstChoice = int.Parse(Console.ReadLine());
+                Console.Clear();
                 Console.WriteLine("Visa i:\n1:Stigande ordning\n2:Fallande ordning");
                 int secondChoice = int.Parse(Console.ReadLine());
                 ShowAllBookings(firstChoice, secondChoice); // Anropa ShowAllBookings med valda sorteringsalternativ
@@ -132,6 +136,7 @@ namespace Bokningssystem
                 Console.WriteLine("Bokningssystem:\n1:Hantera bokningar\n2:Hantera lokaler\n3:Spara och avsluta");
                 if (int.TryParse(Console.ReadLine(), out int menuChoice))
                 {
+                    Console.Clear();
                     switch (menuChoice)
                     {
                         case 1: // Alternativ för att hantera bokningar
@@ -151,6 +156,7 @@ namespace Bokningssystem
                                         FilterBookings();
                                         break;
                                     case 4: // Avboka en bokning (JP)
+                                        Console.Clear();
                                         Console.WriteLine("Ange boknings-ID för att avboka:");
                                         if (int.TryParse(Console.ReadLine(), out int bookingID))
                                         {
@@ -186,7 +192,8 @@ namespace Bokningssystem
                                 Console.WriteLine("Ogiltig inskrift");
                             }
                             break;
-                        case 2: // Alternativ för att hantera lokaler
+                        case 2: 
+                            // Alternativ för att hantera lokaler
                             Console.WriteLine("Hantera lokaler:\n1:Visa alla salar och grupprum\n2:Skapa ny sal eller grupprum");
                             if ((int.TryParse(Console.ReadLine(), out secondMenuChoice)))
                             {
