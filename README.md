@@ -3,6 +3,7 @@
 ○ Hur man startar och använder programmet
 
   Öppna programmet från Bokningssytem.sln  
+
   Huvudmeny startas med tre val:
 
   1.Hantera bokningar för att kunna skapa bokning, uppdatera bokning, ta bort bokning, visa alla bokningar, filtrera alla bokningar
