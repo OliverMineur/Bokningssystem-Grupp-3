@@ -4,8 +4,11 @@
 
   Öppna programmet från Bokningssytem.sln  
   Huvudmeny startas med tre val:
+
   1.Hantera bokningar för att kunna skapa bokning, uppdatera bokning, ta bort bokning, visa alla bokningar, filtrera alla bokningar
+  
   2.Hantera lokaler för att kunna skapa sal, grupprum, visa alla salar och grupprum
+  
   3.Spara avsluta
 
 ○ Eventuella kända begränsningar
