@@ -1,6 +1,7 @@
 # Bokningssystem
 
 ○ Hur man startar och använder programmet
+
   Öppna programmet från Bokningssytem.sln  
   Huvudmeny startas med tre val:
   1.Hantera bokningar för att kunna skapa bokning, uppdatera bokning, ta bort bokning, visa alla bokningar, filtrera alla bokningar
@@ -8,9 +9,11 @@
   3.Spara avsluta
 
 ○ Eventuella kända begränsningar
-    Svensk tidzon
+
+  Svensk tidzon
 
 ○ Val och motiveringar för implementation
+
   Vi har implementerat IBookable, Sal, Grupprum och Lokal i bokningssystemet för att få ett fungerande program
 
   Val av Interface (IBookable)
@@ -26,6 +29,7 @@
   Detta minskar kodduplicering och gör det lättare att utöka systemet med nya typer av lokaler i framtiden.
 
 ○ Beskrivning av filformat och struktur
+
   Vi använder JSON (JavaScript Object Notation) för att lagra och överföra data i vårt bokningssystem. 
   JSON är ett lättviktigt datautbytesformat som är lätt för människor att läsa och skriva, och lätt för maskiner att parsa och generera.
 
