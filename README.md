@@ -36,3 +36,5 @@
   JSON är ett lättviktigt datautbytesformat som är lätt för människor att läsa och skriva, och lätt för maskiner att parsa och generera.
 
 ○ Vilken student har huvudansvaret för vilka delar
+
+  I varje metod i programmet finns underskrift av ansvarig, samt medhjälpare
